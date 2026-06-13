@@ -11,7 +11,6 @@ class Player(models.Model):
 class Session(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     login_time = models.DateTimeField()
-    last_seen = models.DateTimeField()
     logout_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

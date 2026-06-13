@@ -16,7 +16,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dmsm.monitoring',
+    'dmsm.apps.monitor',
+    'dmsm.apps.stats',
+    'dmsm.apps.users',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +83,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+PTERODACTYL_URL = os.environ['PTERODACTYL_URL']
+PTERODACTYL_API_KEY = os.environ['PTERODACTYL_API_KEY']
+PTERODACTYL_SERVER_ID = os.environ['PTERODACTYL_SERVER_ID']
+
 RCON_HOST = os.environ['RCON_HOST']
 RCON_PORT = os.environ['RCON_PORT']
 RCON_PASSWORD = os.environ['RCON_PASSWORD']
-FETCH_INTERVAL = int(os.environ['FETCH_INTERVAL'])
+RCON_INTERVAL = int(os.environ['RCON_INTERVAL'])
