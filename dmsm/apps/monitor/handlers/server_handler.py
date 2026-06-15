@@ -1,3 +1,4 @@
+from django.conf import settings
 from dmsm.apps.stats.models import Server
 
 def sync_player_count(player_count=None, **kwargs):
@@ -26,9 +27,12 @@ def update_is_online(is_online=None, **kwargs):
     if current_status != is_online:
         Server.objects.create(
             is_online=is_online,
-            player_count=last.player_count if last else 0,
+            player_count=0 if not is_online else (last.player_count if last else 0),
             service_mode=last.service_mode if last else 'full'
         )
+        if not is_online:
+            from dmsm.apps.monitor.handlers import session_handler
+            session_handler.close_all_sessions()
 
 def update_service_mode(new_mode=None, failed_at=None, **kwargs):
     if new_mode is None:
@@ -40,7 +44,7 @@ def update_service_mode(new_mode=None, failed_at=None, **kwargs):
     if current_mode != new_mode:
         server_kwargs = {
             'is_online': last.is_online if last else False,
-            'player_count': last.player_count if last else 0,
+            'player_count': 0 if new_mode == settings.MODE_NONE else (last.player_count if last else 0),
             'service_mode': new_mode
         }
         if failed_at:
