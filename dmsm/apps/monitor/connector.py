@@ -5,18 +5,23 @@ import websocket
 import socket
 import struct
 import threading
+import logging
 from django.conf import settings
+
+logger = logging.getLogger(__name__)
 
 class Connector:
     def handle_error(self, service_name):
         errors = self.supervisor.report_connection(service_name, False)
         if errors >= self.supervisor.HARD_LIMIT:
+            logger.error(f"{service_name} reached HARD LIMIT of errors.")
             return False
             
         delay = self.supervisor.RECONNECT_DELAY
         if errors >= self.supervisor.SOFT_LIMIT:
             delay *= 2 ** (errors - self.supervisor.SOFT_LIMIT + 1)
             
+        logger.debug(f"{service_name} reconnecting in {delay}s...")
         time.sleep(delay)
         return True
 
@@ -62,12 +67,13 @@ class PterodactylConnector(Connector):
             pass
 
     def on_error(self, ws, error):
-        pass
+        logger.error(f"Pterodactyl websocket error: {error}")
 
     def on_close(self, ws, close_status_code, close_msg):
-        pass
+        logger.warning(f"Pterodactyl websocket closed: {close_status_code} {close_msg}")
 
     def on_open(self, ws):
+        logger.info("Pterodactyl websocket opened. Authenticating...")
         self.supervisor.report_connection('ptero', True)
         ws.send(json.dumps({"event": "auth", "args": [self.token]}))
 
@@ -93,7 +99,10 @@ class PterodactylConnector(Connector):
 
     def command(self, command):
         if self.ws:
-            self.ws.send(json.dumps({"event": "send command", "args": [command]}))
+            try:
+                self.ws.send(json.dumps({"event": "send command", "args": [command]}))
+            except Exception as e:
+                logger.warning(f"Failed to send command via Pterodactyl: {e}")
 
 
 class RCONConnector(Connector):
@@ -107,12 +116,15 @@ class RCONConnector(Connector):
         self.interval = int(settings.RCON_INTERVAL) if settings.RCON_INTERVAL else 5
         self.lock = threading.Lock()
         self.req_id = 0
+        self.server_is_online = True
+        self.auth_failed = False
 
     def connect(self):
         if not self.host or not self.port:
             self.supervisor.report_connection('rcon', False)
             return
         try:
+            logger.debug(f"Connecting to RCON at {self.host}:{self.port}...")
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.settimeout(5.0)
             self.sock.connect((self.host, int(self.port)))
@@ -133,8 +145,25 @@ class RCONConnector(Connector):
             else:
                 raise ConnectionError("Invalid RCON response length.")
                 
+            logger.info("RCON connection and authentication successful.")
             self.supervisor.report_connection('rcon', True)
-        except Exception:
+        except PermissionError as e:
+            logger.error(f"RCON Authentication failed: {e}")
+            errors = self.supervisor.report_connection('rcon', False)
+            if errors >= self.supervisor.HARD_LIMIT:
+                logger.critical("RCON HARD LIMIT reached for auth errors. Disabling RCON.")
+                self.auth_failed = True
+            self.sock = None
+        except ConnectionRefusedError as e:
+            logger.warning(f"RCON Connection refused (server likely offline): {e}")
+            errors = self.supervisor.report_connection('rcon', False)
+            if errors >= self.supervisor.SOFT_LIMIT:
+                logger.warning("RCON SOFT LIMIT reached. Marking server as offline.")
+                from dmsm.apps.monitor.handlers import server_handler
+                server_handler.update_is_online(is_online=False)
+            self.sock = None
+        except Exception as e:
+            logger.warning(f"RCON Connection error: {e}")
             self.sock = None
             self.supervisor.report_connection('rcon', False)
 
@@ -147,12 +176,10 @@ class RCONConnector(Connector):
         self.sock = None
         self.connect()
 
-    def command(self, cmd, packet_type=2, retries=1):
+    def command(self, cmd, packet_type=2):
         with self.lock:
             if not self.sock:
-                self.connect()
-                if not self.sock:
-                    return ""
+                return ""
             try:
                 self.req_id += 1
                 current_id = self.req_id
@@ -193,17 +220,43 @@ class RCONConnector(Connector):
             except Exception:
                 self.sock = None
                 self.supervisor.report_connection('rcon', False)
-                if retries > 0:
-                    return self.command(cmd, packet_type, retries - 1)
                 return ""
     
+    def maintain_connection(self):
+        while True:
+            try:
+                if self.auth_failed:
+                    break
+                    
+                if not self.server_is_online:
+                    time.sleep(1)
+                    continue
+                    
+                if not self.sock:
+                    with self.lock:
+                        if not self.sock:
+                            self.connect()
+                
+                time.sleep(1)
+            except Exception as e:
+                logger.error(f"Unexpected error in maintain_connection: {e}")
+                time.sleep(1)
+
     def uuids_thread(self):
         while True:
-            if not self.sock:
-                self.connect()
-            
-            mode = self.supervisor.current_mode
-            if mode in [None, settings.MODE_FULL, settings.MODE_RCON_ONLY]:
-                self.handler.send_command('/list uuids')
+            try:
+                if self.auth_failed:
+                    break
                 
-            time.sleep(self.interval)
+                if self.sock:
+                    mode = self.supervisor.current_mode
+                    if mode in [None, settings.MODE_FULL, settings.MODE_RCON_ONLY]:
+                        self.handler.send_command('/list uuids')
+                    
+                time.sleep(self.interval)
+            except Exception as e:
+                logger.error(f"Unexpected error in uuids_thread: {e}")
+                time.sleep(self.interval)
+
+    def set_server_state(self, is_online):
+        self.server_is_online = is_online

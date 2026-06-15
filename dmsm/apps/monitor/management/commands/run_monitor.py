@@ -5,8 +5,17 @@ from dmsm.apps.monitor.connector import PterodactylConnector, RCONConnector
 from dmsm.apps.monitor.handler import Handler
 from dmsm.apps.monitor.supervisor import Supervisor
 
+import logging
+
 class Command(BaseCommand):
+
     def handle(self, *args, **options):
+        logging.basicConfig(
+            level=logging.CRITICAL,
+            format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S',
+            force=True
+        )
         handler = Handler()
         supervisor = Supervisor()
         handler.supervisor = supervisor
@@ -25,9 +34,11 @@ class Command(BaseCommand):
         if has_rcon:
             rcon_connector = RCONConnector(handler=handler, supervisor=supervisor)
             handler.rcon = rcon_connector
-            rcon_connector.connect()
+            threading.Thread(target=rcon_connector.maintain_connection, daemon=True).start()
             threading.Thread(target=rcon_connector.uuids_thread, daemon=True).start()
 
+        time.sleep(5)
+        handler.send_command('/list uuids')
 
         while True:
             time.sleep(1)

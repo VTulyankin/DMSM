@@ -2,6 +2,9 @@ from django.core.cache import cache
 from django.utils import timezone
 from dmsm import settings
 from dmsm.apps.stats.models import Server
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Supervisor:
     SOFT_LIMIT = 3
@@ -30,10 +33,13 @@ class Supervisor:
     def report_connection(self, service_name, is_connected):
         if service := self.services.get(service_name):
             if is_connected:
+                if service['errors'] != 0:
+                    logger.info(f"Service {service_name} connection established/restored.")
                 service['errors'] = 0
                 service['failed_at'] = None
             else:
                 if service['errors'] == 0:
+                    logger.warning(f"Service {service_name} connection lost.")
                     service['failed_at'] = timezone.now()
                 service['errors'] = (service['errors'] or 0) + 1
             self.update_mode()
@@ -42,17 +48,21 @@ class Supervisor:
 
     def update_mode(self):
         for data in self.services.values():
-            if data['errors'] is None or (0 < data['errors'] < self.SOFT_LIMIT):
+            if data['errors'] is None:
                 return
                 
+        ptero_ok = self.services['ptero']['errors'] < self.SOFT_LIMIT
+        rcon_ok = self.services['rcon']['errors'] < self.SOFT_LIMIT
+        
         new_mode = {
             (True, True): settings.MODE_FULL,
             (True, False): settings.MODE_PTERODACTYL_ONLY,
             (False, True): settings.MODE_RCON_ONLY,
             (False, False): settings.MODE_NONE
-        }[(self.services['ptero']['errors'] == 0, self.services['rcon']['errors'] == 0)]
+        }[(ptero_ok, rcon_ok)]
         
         if new_mode != self.current_mode:
+            logger.info(f"Service mode changed from {self.current_mode} to {new_mode}")
             self.current_mode = new_mode
             cache.set('service_mode', self.current_mode, timeout=None)
             

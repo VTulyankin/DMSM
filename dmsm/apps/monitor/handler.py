@@ -24,7 +24,10 @@ class Handler:
 
     def route_event(self, event_type, **kwargs):
         if event_type == 'status':
-            server_handler.update_is_online(is_online=kwargs.get('is_online'))
+            is_online = kwargs.get('is_online')
+            server_handler.update_is_online(is_online=is_online)
+            if self.rcon:
+                self.rcon.set_server_state(is_online)
 
     def route_text(self, text):
         for pattern, methods in self.ROUTES:
@@ -43,7 +46,10 @@ class Handler:
                     data['players_dict'] = players_dict
                 
                 for method in methods:
-                    method(**data)
+                    try:
+                        method(**data)
+                    except Exception:
+                        pass
 
     def send_command(self, cmd):
         if not self.supervisor:
