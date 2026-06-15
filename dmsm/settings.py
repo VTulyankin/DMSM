@@ -83,11 +83,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-PTERODACTYL_URL = os.environ['PTERODACTYL_URL']
-PTERODACTYL_API_KEY = os.environ['PTERODACTYL_API_KEY']
-PTERODACTYL_SERVER_ID = os.environ['PTERODACTYL_SERVER_ID']
+PTERODACTYL_URL = os.environ.get('PTERODACTYL_URL')
+PTERODACTYL_API_KEY = os.environ.get('PTERODACTYL_API_KEY')
+PTERODACTYL_SERVER_ID = os.environ.get('PTERODACTYL_SERVER_ID')
 
-RCON_HOST = os.environ['RCON_HOST']
-RCON_PORT = os.environ['RCON_PORT']
-RCON_PASSWORD = os.environ['RCON_PASSWORD']
-RCON_INTERVAL = int(os.environ['RCON_INTERVAL'])
+RCON_HOST = os.environ.get('RCON_HOST')
+RCON_PORT = os.environ.get('RCON_PORT')
+RCON_PASSWORD = os.environ.get('RCON_PASSWORD')
+RCON_INTERVAL = int(os.environ.get('RCON_INTERVAL'))
+
+MODE_FULL = 'full'
+MODE_PTERODACTYL_ONLY = 'ptero'
+MODE_RCON_ONLY = 'rcon'
+MODE_NONE = 'none'

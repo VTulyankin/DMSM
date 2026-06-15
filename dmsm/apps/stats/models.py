@@ -20,6 +20,7 @@ class Server(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     is_online = models.BooleanField()
     player_count = models.IntegerField()
+    service_mode = models.CharField(max_length=20, default='full')
 
     def __str__(self):
-        return f"Server status at {self.timestamp}: {'Online' if self.is_online else 'Offline'}, {self.player_count} players"
+        return f"Server status at {self.timestamp}: {'Online' if self.is_online else 'Offline'}, {self.player_count} players, Mode: {self.service_mode}"
