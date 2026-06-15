@@ -52,12 +52,12 @@ class PterodactylConnector(Connector):
 
             if event == 'console output':
                 for line in args:
-                    self.handler.handle_ptero_log(line)
+                    self.handler.route_text(line)
             elif event == 'stats' and args:
                 state = json.loads(args[0]).get('state')
                 if state and state != self.current_state:
                     self.current_state = state
-                    self.handler.handle_status(state)
+                    self.handler.route_event('status', is_online=(state == 'running'))
         except Exception:
             pass
 
@@ -110,6 +110,7 @@ class RCONConnector(Connector):
 
     def connect(self):
         if not self.host or not self.port:
+            self.supervisor.report_connection('rcon', False)
             return
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -118,13 +119,24 @@ class RCONConnector(Connector):
             
             packet = struct.pack('<ii', 1, 3) + self.password.encode('utf-8') + b'\x00\x00'
             self.sock.sendall(struct.pack('<i', len(packet)) + packet)
+            
             response_length_data = self.sock.recv(4)
-            if response_length_data:
-                self.sock.recv(struct.unpack('<i', response_length_data)[0])
+            if not response_length_data:
+                raise ConnectionError("Connection closed by remote host during authentication.")
+                
+            response_length = struct.unpack('<i', response_length_data)[0]
+            response_data = self.sock.recv(response_length)
+            if len(response_data) >= 8:
+                resp_id, resp_type = struct.unpack('<ii', response_data[:8])
+                if resp_id == -1:
+                    raise PermissionError("RCON authentication failed: invalid password.")
+            else:
+                raise ConnectionError("Invalid RCON response length.")
                 
             self.supervisor.report_connection('rcon', True)
         except Exception:
             self.sock = None
+            self.supervisor.report_connection('rcon', False)
 
     def reconnect(self):
         if self.sock:
@@ -180,24 +192,18 @@ class RCONConnector(Connector):
                             return full_response
             except Exception:
                 self.sock = None
+                self.supervisor.report_connection('rcon', False)
                 if retries > 0:
                     return self.command(cmd, packet_type, retries - 1)
                 return ""
-
-    def polling(self):
-        last_uuids = None
+    
+    def uuids_thread(self):
         while True:
-            uuids = self.command('/list uuids')
-            if not uuids:
-                if not self.handle_error('rcon'):
-                    break
-                continue
-            else:
-                self.supervisor.report_connection('rcon', True)
-                if uuids != last_uuids:
-                    last_uuids = uuids
-                    self.handler.handle_rcon_uuids(uuids)
+            if not self.sock:
+                self.connect()
             
+            mode = self.supervisor.current_mode
+            if mode in [None, settings.MODE_FULL, settings.MODE_RCON_ONLY]:
+                self.handler.send_command('/list uuids')
+                
             time.sleep(self.interval)
-
-

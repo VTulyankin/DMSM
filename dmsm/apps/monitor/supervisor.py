@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.utils import timezone
 from dmsm import settings
 from dmsm.apps.stats.models import Server
 
@@ -14,11 +15,13 @@ class Supervisor:
         self.services = {
             'ptero': {
                 'has_config': has_ptero,
-                'errors': None if has_ptero else self.SOFT_LIMIT
+                'errors': None if has_ptero else self.HARD_LIMIT,
+                'failed_at': None
             },
             'rcon': {
                 'has_config': has_rcon,
-                'errors': None if has_rcon else self.SOFT_LIMIT
+                'errors': None if has_rcon else self.HARD_LIMIT,
+                'failed_at': None
             }
         }
         
@@ -26,7 +29,13 @@ class Supervisor:
 
     def report_connection(self, service_name, is_connected):
         if service := self.services.get(service_name):
-            service['errors'] = 0 if is_connected else (service['errors'] or 0) + 1
+            if is_connected:
+                service['errors'] = 0
+                service['failed_at'] = None
+            else:
+                if service['errors'] == 0:
+                    service['failed_at'] = timezone.now()
+                service['errors'] = (service['errors'] or 0) + 1
             self.update_mode()
             return service['errors']
         return self.HARD_LIMIT
@@ -47,9 +56,12 @@ class Supervisor:
             self.current_mode = new_mode
             cache.set('service_mode', self.current_mode, timeout=None)
             
-            last = Server.objects.last()
-            Server.objects.create(
-                is_online=last.is_online if last else False,
-                player_count=last.player_count if last else 0,
-                service_mode=new_mode
-            )
+            failed_times = [s.get('failed_at') for s in self.services.values() if s.get('failed_at')]
+            failed_at = max(failed_times) if failed_times else None
+            
+            from dmsm.apps.monitor.handlers import server_handler
+            server_handler.update_service_mode(new_mode=new_mode, failed_at=failed_at)
+            
+            if new_mode == settings.MODE_NONE:
+                from dmsm.apps.monitor.handlers import session_handler
+                session_handler.close_all_sessions(failed_at=failed_at)

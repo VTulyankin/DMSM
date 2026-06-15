@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Player(models.Model):
     uuid = models.CharField(max_length=36, unique=True)
@@ -17,7 +18,7 @@ class Session(models.Model):
         return f"{self.player.nickname} ({self.login_time} - {self.logout_time or 'present'})"
 
 class Server(models.Model):
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=timezone.now)
     is_online = models.BooleanField()
     player_count = models.IntegerField()
     service_mode = models.CharField(max_length=20, default='full')

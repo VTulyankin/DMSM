@@ -5,18 +5,11 @@ from dmsm.apps.monitor.connector import PterodactylConnector, RCONConnector
 from dmsm.apps.monitor.handler import Handler
 from dmsm.apps.monitor.supervisor import Supervisor
 
-def run_rcon_monitoring(handler, supervisor):
-    connector = RCONConnector(handler=handler, supervisor=supervisor)
-    connector.polling()
-
-def run_pterodactyl_monitoring(handler, supervisor):
-    connector = PterodactylConnector(handler=handler, supervisor=supervisor)
-    connector.connect()
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
         handler = Handler()
         supervisor = Supervisor()
+        handler.supervisor = supervisor
         
         has_ptero = supervisor.services['ptero']['has_config']
         has_rcon = supervisor.services['rcon']['has_config']
@@ -25,12 +18,16 @@ class Command(BaseCommand):
             return
 
         if has_ptero:
-            ptero_thread = threading.Thread(target=run_pterodactyl_monitoring, args=(handler, supervisor), daemon=True)
-            ptero_thread.start()
+            ptero_connector = PterodactylConnector(handler=handler, supervisor=supervisor)
+            handler.ptero = ptero_connector
+            threading.Thread(target=ptero_connector.connect, daemon=True).start()
             
         if has_rcon:
-            rcon_thread = threading.Thread(target=run_rcon_monitoring, args=(handler, supervisor), daemon=True)
-            rcon_thread.start()
+            rcon_connector = RCONConnector(handler=handler, supervisor=supervisor)
+            handler.rcon = rcon_connector
+            rcon_connector.connect()
+            threading.Thread(target=rcon_connector.uuids_thread, daemon=True).start()
+
 
         while True:
             time.sleep(1)
