@@ -63,6 +63,11 @@ class PterodactylConnector(Connector):
                 if state and state != self.current_state:
                     self.current_state = state
                     self.handler.route_event('status', is_online=(state == 'running'))
+            elif event == 'token expiring':
+                new_token, _ = self.get_websocket_credentials()
+                if new_token:
+                    self.token = new_token
+                    ws.send(json.dumps({"event": "auth", "args": [self.token]}))
         except Exception:
             pass
 
@@ -179,7 +184,8 @@ class RCONConnector(Connector):
     def command(self, cmd, packet_type=2):
         with self.lock:
             if not self.sock:
-                return ""
+                self.supervisor.report_connection('rcon', False)
+                return None
             try:
                 self.req_id += 1
                 current_id = self.req_id
@@ -220,7 +226,7 @@ class RCONConnector(Connector):
             except Exception:
                 self.sock = None
                 self.supervisor.report_connection('rcon', False)
-                return ""
+                return None
     
     def maintain_connection(self):
         while True:
@@ -248,14 +254,29 @@ class RCONConnector(Connector):
                 if self.auth_failed:
                     break
                 
-                if self.sock:
-                    mode = self.supervisor.current_mode
-                    if mode in [None, settings.MODE_FULL, settings.MODE_RCON_ONLY]:
-                        self.handler.send_command('/list uuids')
+                ptero_errors = self.supervisor.services['ptero']['errors']
+                if ptero_errors is None or ptero_errors > 0:
+                    self.handler.send_command('/list uuids')
                     
                 time.sleep(self.interval)
             except Exception as e:
                 logger.error(f"Unexpected error in uuids_thread: {e}")
+                time.sleep(self.interval)
+
+    def scoreboard_thread(self):
+        while True:
+            try:
+                if self.auth_failed:
+                    break
+                
+                if self.sock:
+                    ptero_errors = self.supervisor.services['ptero']['errors']
+                    if ptero_errors is None or ptero_errors > 0:
+                        self.handler.send_command('/scoreboard players get @a[scores={link=1..},limit=1] link')
+                    
+                time.sleep(self.interval)
+            except Exception as e:
+                logger.error(f"Unexpected error in scoreboard_thread: {e}")
                 time.sleep(self.interval)
 
     def set_server_state(self, is_online):

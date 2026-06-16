@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         logging.basicConfig(
-            level=logging.CRITICAL,
+            level=logging.INFO,
             format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S',
             force=True
@@ -36,9 +36,13 @@ class Command(BaseCommand):
             handler.rcon = rcon_connector
             threading.Thread(target=rcon_connector.maintain_connection, daemon=True).start()
             threading.Thread(target=rcon_connector.uuids_thread, daemon=True).start()
+            threading.Thread(target=rcon_connector.scoreboard_thread, daemon=True).start()
 
         time.sleep(5)
         handler.send_command('/list uuids')
+        handler.send_command('/scoreboard objectives add link trigger')
+        handler.send_command('/scoreboard players enable @a link')
+        handler.send_command('/version')
 
         while True:
             time.sleep(1)

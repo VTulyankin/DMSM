@@ -10,7 +10,8 @@ class Handler:
 
         self.ROUTES = [
             (re.compile(r"(?P<nickname>\w+)\[.*?\] logged in with entity id"), [
-                lambda **k: self.send_command('/list uuids')
+                lambda **k: self.send_command('/list uuids'),
+                lambda **k: self.send_command(f'/scoreboard players enable @a link')
             ]),
             (re.compile(r"(?P<nickname>\w+) lost connection: (?P<reason>.*)"), [
                 lambda **k: self.send_command('/list uuids')
@@ -19,15 +20,22 @@ class Handler:
                 server_handler.sync_player_count,
                 player_handler.sync_players,
                 session_handler.sync_sessions
+            ]),
+            (re.compile(r"\[(?P<nickname>\w+): Triggered \[link\]\]"), [
+                player_handler.handle_trigger_link
+            ]),
+            (re.compile(r"(?P<nickname>\w+) has (?P<score>\d+) \[link\]"), [
+                player_handler.handle_trigger_link
+            ]),
+            (re.compile(r"(?:version\s+|name\s*=\s*)(?P<version>\d+\.\d+(?:\.\d+)?)", re.IGNORECASE), [
+                server_handler.update_server_version
             ])
         ]
 
     def route_event(self, event_type, **kwargs):
         if event_type == 'status':
             is_online = kwargs.get('is_online')
-            server_handler.update_is_online(is_online=is_online)
-            if self.rcon:
-                self.rcon.set_server_state(is_online)
+            server_handler.update_is_online(is_online=is_online, handler=self)
 
     def route_text(self, text):
         for pattern, methods in self.ROUTES:
@@ -45,6 +53,8 @@ class Handler:
                                 players_dict[name] = uuid.rstrip(')')
                     data['players_dict'] = players_dict
                 
+                data['handler'] = self
+                
                 for method in methods:
                     try:
                         method(**data)
@@ -61,8 +71,9 @@ class Handler:
         if mode in [None, settings.MODE_FULL, settings.MODE_RCON_ONLY]:
             if self.rcon:
                 response = self.rcon.command(cmd)
-                if response:
-                    self.route_text(response)
+                if response is not None:
+                    if response:
+                        self.route_text(response)
                     return
 
         if mode in [None, settings.MODE_FULL, settings.MODE_PTERODACTYL_ONLY]:

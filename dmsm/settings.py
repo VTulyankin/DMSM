@@ -92,7 +92,14 @@ RCON_PORT = os.environ.get('RCON_PORT')
 RCON_PASSWORD = os.environ.get('RCON_PASSWORD')
 RCON_INTERVAL = int(os.environ.get('RCON_INTERVAL'))
 
+WHITELIST_MODE = os.environ.get('WHITELIST_MODE') == 'True'
+
 MODE_FULL = 'full'
 MODE_PTERODACTYL_ONLY = 'ptero'
 MODE_RCON_ONLY = 'rcon'
 MODE_NONE = 'none'
+
+TELLRAW_LINK_MESSAGE = [
+    {"text": "<DMSM> Для привязки аккаунта ", "color": "white"},
+    {"text": "[перейди по ссылке]", "color": "green", "is_link": True}
+]
