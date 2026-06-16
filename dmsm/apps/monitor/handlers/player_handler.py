@@ -10,6 +10,28 @@ from dmsm.apps.stats.models import Player
 
 logger = logging.getLogger(__name__)
 
+def update_player_name_if_changed(existing_player):
+    clean_uuid = existing_player.uuid.replace('-', '')
+    resp = requests.get(f'https://sessionserver.mojang.com/session/minecraft/profile/{clean_uuid}', timeout=5)
+    
+    if resp.status_code == 200:
+        data = resp.json()
+        new_name = data.get('name')
+        if new_name and new_name != existing_player.nickname:
+            existing_player.nickname = new_name
+            existing_player.save()
+            if hasattr(existing_player, 'userprofile'):
+                user = existing_player.userprofile.user
+                user.username = new_name
+                user.save()
+            return True
+        return False
+    elif resp.status_code in [204, 404, 400]:
+        return False
+    
+    resp.raise_for_status()
+    return False
+
 def sync_players(players_dict=None, handler=None, **kwargs):
     if players_dict is None:
         return
@@ -19,30 +41,12 @@ def sync_players(players_dict=None, handler=None, **kwargs):
         if existing:
             def resolve_conflict(nick, new_uuid, existing_player, hndl):
                 try:
-                    clean_uuid = existing_player.uuid.replace('-', '')
-                    resp = requests.get(f'https://sessionserver.mojang.com/session/minecraft/profile/{clean_uuid}', timeout=5)
-                    if resp.status_code == 200:
-                        data = resp.json()
-                        new_name = data.get('name')
-                        if new_name and new_name != nick:
-                            existing_player.nickname = new_name
-                            existing_player.save()
-                            if hasattr(existing_player, 'userprofile'):
-                                user = existing_player.userprofile.user
-                                user.username = new_name
-                                user.save()
-                        else:
-                            existing_player.uuid = new_uuid
-                            existing_player.save()
-                    elif resp.status_code in [204, 404, 400]:
+                    changed = update_player_name_if_changed(existing_player)
+                    if not changed:
                         existing_player.uuid = new_uuid
                         existing_player.save()
-                    else:
-                        if hndl:
-                            threading.Timer(15.0, hndl.send_command, args=['/list uuids']).start()
-                        return
                 except Exception as e:
-                    logger.warning(f"Mojang API failed for {clean_uuid}: {e}")
+                    logger.warning(f"Mojang API failed for {existing_player.uuid}: {e}")
                     if hndl:
                         threading.Timer(15.0, hndl.send_command, args=['/list uuids']).start()
                     return

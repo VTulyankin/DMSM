@@ -1,0 +1,57 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Регистрация - DMSM{% endblock %}
+
+{% block auth_content %}
+{% if success %}
+<div class="text-center">
+    <h2 class="text-2xl font-bold mb-4 text-green-600">Регистрация успешна!</h2>
+    <p class="mb-4 text-gray-700">Добро пожаловать, <strong>{{ username }}</strong>.</p>
+    
+    {% if whitelist_mode %}
+    <div class="bg-blue-50 p-4 rounded mb-4 text-left border border-blue-200">
+        <h3 class="font-bold text-blue-800 mb-2">Вы добавлены в WhiteList!</h3>
+        <p class="text-sm text-blue-700 mb-2">Теперь вы можете зайти на сервер Minecraft под этим никнеймом.</p>
+        {% if not is_linked %}
+        <p class="text-sm text-blue-700 font-bold mt-3 mb-1">Для завершения привязки профиля к сайту:</p>
+        <ol class="list-decimal list-inside text-sm text-blue-700 space-y-1">
+            <li>Зайдите на сервер</li>
+            <li>Откройте чат и введите команду: <code class="bg-white px-1 py-0.5 rounded border border-blue-300 font-mono">/trigger link</code></li>
+            <li>Нажмите на появившуюся в чате ссылку</li>
+        </ol>
+        {% endif %}
+    </div>
+    {% elif not is_linked %}
+    <div class="bg-blue-50 p-4 rounded mb-4 text-left border border-blue-200">
+        <h3 class="font-bold text-blue-800 mb-2">Следующий шаг</h3>
+        <p class="text-sm text-blue-700 mb-2">Чтобы получить доступ ко всем функциям сайта, привяжите свой игровой профиль:</p>
+        <ol class="list-decimal list-inside text-sm text-blue-700 space-y-1">
+            <li>Зайдите на сервер Minecraft</li>
+            <li>Введите в чат команду: <code class="bg-white px-1 py-0.5 rounded border border-blue-300 font-mono">/trigger link</code></li>
+            <li>Нажмите на появившуюся в чате ссылку</li>
+        </ol>
+    </div>
+    {% endif %}
+    
+    <a href="/" class="inline-block mt-4 bg-gray-200 text-gray-800 px-6 py-2 rounded hover:bg-gray-300 transition">Перейти на главную</a>
+</div>
+{% else %}
+<h2 class="text-2xl font-bold mb-4 text-center">Регистрация</h2>
+
+<form method="post" action="">
+    {% csrf_token %}
+    
+    <div class="mb-4">
+        {{ form.as_p }}
+    </div>
+
+    <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
+        Зарегистрироваться
+    </button>
+</form>
+
+<p class="mt-4 text-center">
+    Уже есть аккаунт? <a href="{% url 'users:login' %}" class="text-blue-500">Войти</a>
+</p>
+{% endif %}
+{% endblock %}
