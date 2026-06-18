@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.utils import timezone
 from dmsm import settings
-from dmsm.apps.stats.models import Server
+from dmsm.apps.core.models import Server
 import logging
 
 logger = logging.getLogger(__name__)

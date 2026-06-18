@@ -6,7 +6,7 @@ import threading
 from django.core.signing import dumps
 from django.conf import settings
 from django.core.cache import cache
-from dmsm.apps.stats.models import Player
+from dmsm.apps.core.models import Player
 
 logger = logging.getLogger(__name__)
 
@@ -78,7 +78,7 @@ def handle_trigger_link(nickname, score=None, handler=None, **kwargs):
             handler.send_command('/list uuids')
         return
 
-    from dmsm.apps.stats.models import Session
+    from dmsm.apps.core.models import Session
     active_session = Session.objects.filter(player=player, logout_time__isnull=True).exists()
     if not active_session:
         if handler:

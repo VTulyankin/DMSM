@@ -1,0 +1,127 @@
+/* Global styles for DMSM */
+:root {
+    /* Base Colors */
+    --color-base-green: #7FBB17;
+    --color-base-blue: #0EA6EE;
+    --color-base-red: #F25226;
+    --color-base-yellow: #FEB918;
+
+    /* Green Palette */
+    --color-green-50: color-mix(in srgb, var(--color-base-green) 10%, white);
+    --color-green-100: color-mix(in srgb, var(--color-base-green) 20%, white);
+    --color-green-200: color-mix(in srgb, var(--color-base-green) 40%, white);
+    --color-green-300: color-mix(in srgb, var(--color-base-green) 60%, white);
+    --color-green-400: color-mix(in srgb, var(--color-base-green) 80%, white);
+    --color-green-500: var(--color-base-green);
+    --color-green-600: color-mix(in srgb, var(--color-base-green) 85%, black);
+    --color-green-700: color-mix(in srgb, var(--color-base-green) 70%, black);
+    --color-green-800: color-mix(in srgb, var(--color-base-green) 50%, black);
+    --color-green-900: color-mix(in srgb, var(--color-base-green) 30%, black);
+
+    /* Blue Palette */
+    --color-blue-50: color-mix(in srgb, var(--color-base-blue) 10%, white);
+    --color-blue-100: color-mix(in srgb, var(--color-base-blue) 20%, white);
+    --color-blue-200: color-mix(in srgb, var(--color-base-blue) 40%, white);
+    --color-blue-300: color-mix(in srgb, var(--color-base-blue) 60%, white);
+    --color-blue-400: color-mix(in srgb, var(--color-base-blue) 80%, white);
+    --color-blue-500: var(--color-base-blue);
+    --color-blue-600: color-mix(in srgb, var(--color-base-blue) 85%, black);
+    --color-blue-700: color-mix(in srgb, var(--color-base-blue) 70%, black);
+    --color-blue-800: color-mix(in srgb, var(--color-base-blue) 50%, black);
+    --color-blue-900: color-mix(in srgb, var(--color-base-blue) 30%, black);
+
+    /* Red Palette */
+    --color-red-50: color-mix(in srgb, var(--color-base-red) 10%, white);
+    --color-red-100: color-mix(in srgb, var(--color-base-red) 20%, white);
+    --color-red-200: color-mix(in srgb, var(--color-base-red) 40%, white);
+    --color-red-300: color-mix(in srgb, var(--color-base-red) 60%, white);
+    --color-red-400: color-mix(in srgb, var(--color-base-red) 80%, white);
+    --color-red-500: var(--color-base-red);
+    --color-red-600: color-mix(in srgb, var(--color-base-red) 85%, black);
+    --color-red-700: color-mix(in srgb, var(--color-base-red) 70%, black);
+    --color-red-800: color-mix(in srgb, var(--color-base-red) 50%, black);
+    --color-red-900: color-mix(in srgb, var(--color-base-red) 30%, black);
+
+    /* Yellow Palette */
+    --color-yellow-50: color-mix(in srgb, var(--color-base-yellow) 10%, white);
+    --color-yellow-100: color-mix(in srgb, var(--color-base-yellow) 20%, white);
+    --color-yellow-200: color-mix(in srgb, var(--color-base-yellow) 40%, white);
+    --color-yellow-300: color-mix(in srgb, var(--color-base-yellow) 60%, white);
+    --color-yellow-400: color-mix(in srgb, var(--color-base-yellow) 80%, white);
+    --color-yellow-500: var(--color-base-yellow);
+    --color-yellow-600: color-mix(in srgb, var(--color-base-yellow) 85%, black);
+    --color-yellow-700: color-mix(in srgb, var(--color-base-yellow) 70%, black);
+    --color-yellow-800: color-mix(in srgb, var(--color-base-yellow) 50%, black);
+    --color-yellow-900: color-mix(in srgb, var(--color-base-yellow) 30%, black);
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Auth Forms Styling */
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: all 0.2s;
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #1f2937;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="password"]:focus,
+.auth-form input[type="email"]:focus {
+    border-color: var(--color-blue-500);
+    box-shadow: 0 0 0 3px rgba(14, 166, 238, 0.2);
+}
+
+.auth-form input[readonly] {
+    background-color: #f3f4f6;
+    color: #6b7280;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+}
+
+.auth-form p {
+    margin-bottom: 1.25rem;
+}
+
+.auth-form label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.375rem;
+}
+
+.auth-form .helptext {
+    display: none;
+}
+
+.auth-form ul.errorlist {
+    color: var(--color-red-600);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    list-style-type: none;
+    background-color: #fef2f2;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-red-200);
+}
+
+.auth-form ul.errorlist li {
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.auth-form ul.errorlist li:first-child {
+    margin-top: 0;
+}

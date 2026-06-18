@@ -1,26 +1,80 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}DMSM{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/logo.svg' %}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            50: 'var(--color-green-50)', 100: 'var(--color-green-100)', 200: 'var(--color-green-200)',
+                            300: 'var(--color-green-300)', 400: 'var(--color-green-400)', 500: 'var(--color-green-500)',
+                            600: 'var(--color-green-600)', 700: 'var(--color-green-700)', 800: 'var(--color-green-800)',
+                            900: 'var(--color-green-900)'
+                        },
+                        blue: {
+                            50: 'var(--color-blue-50)', 100: 'var(--color-blue-100)', 200: 'var(--color-blue-200)',
+                            300: 'var(--color-blue-300)', 400: 'var(--color-blue-400)', 500: 'var(--color-blue-500)',
+                            600: 'var(--color-blue-600)', 700: 'var(--color-blue-700)', 800: 'var(--color-blue-800)',
+                            900: 'var(--color-blue-900)'
+                        },
+                        red: {
+                            50: 'var(--color-red-50)', 100: 'var(--color-red-100)', 200: 'var(--color-red-200)',
+                            300: 'var(--color-red-300)', 400: 'var(--color-red-400)', 500: 'var(--color-red-500)',
+                            600: 'var(--color-red-600)', 700: 'var(--color-red-700)', 800: 'var(--color-red-800)',
+                            900: 'var(--color-red-900)'
+                        },
+                        yellow: {
+                            50: 'var(--color-yellow-50)', 100: 'var(--color-yellow-100)', 200: 'var(--color-yellow-200)',
+                            300: 'var(--color-yellow-300)', 400: 'var(--color-yellow-400)', 500: 'var(--color-yellow-500)',
+                            600: 'var(--color-yellow-600)', 700: 'var(--color-yellow-700)', 800: 'var(--color-yellow-800)',
+                            900: 'var(--color-yellow-900)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}">
+    {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-gray-100 text-gray-900">
     <!-- Navbar -->
     <nav class="p-4 bg-white shadow mb-4">
-        <div class="container mx-auto flex justify-between">
-            <a href="/" class="font-bold text-xl">DMSM</a>
-            <div>
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2 group">
+                <img src="{% static 'img/logo.svg' %}" alt="DMSM Logo" class="h-[37px] w-[37px]">
+                <span class="font-bold text-2xl tracking-tight text-gray-800 group-hover:text-green-500 transition-colors">DMSM</span>
+            </a>
+            <div class="flex items-center space-x-3">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'users:profile' request.user.username %}" class="mr-4">Профиль</a>
-                    <form action="{% url 'users:logout' %}" method="post" class="inline">
-                        {% csrf_token %}
-                        <button type="submit">Выйти</button>
-                    </form>
+                    <a href="{% url 'users:profile' request.user.username %}" class="group flex items-center space-x-2 bg-gray-50 p-2 rounded border border-gray-100 hover:border-green-400 hover:shadow-sm transition-all cursor-pointer">
+                        {% if request.user.userprofile.player %}
+                            <div class="w-8 flex items-center justify-center mr-1">
+                                <img id="nav-player-avatar" src="https://api.mineatar.io/head/{{ request.user.userprofile.player.uuid|cut:'-'|default:'MHF_Steve' }}?scale=16" alt="{{ request.user.username }}" class="w-full h-auto object-contain drop-shadow-sm" onerror="this.onerror=null; this.src='https://api.mineatar.io/head/MHF_Steve?scale=16'">
+                            </div>
+                            <span id="nav-username" class="font-semibold text-gray-700 group-hover:text-green-600 transition-colors">{{ request.user.username }}</span>
+                            <span id="nav-player-status-badge" class="px-2 py-1 text-[10px] leading-none flex items-center font-bold uppercase rounded-full bg-gray-200 text-gray-500 border border-transparent ml-1">Загрузка...</span>
+                        {% else %}
+                            <span id="nav-username" class="font-semibold text-gray-700 group-hover:text-green-600 transition-colors px-2">{{ request.user.username }}</span>
+                            <span id="nav-player-status-badge" class="ml-1 px-2 py-1 text-[10px] leading-none flex items-center font-bold uppercase rounded-full bg-blue-100 text-blue-600 border border-blue-200">Не привязан</span>
+                        {% endif %}
+                    </a>
                 {% else %}
-                    <a href="{% url 'users:login' %}" class="mr-4">Войти</a>
-                    <a href="{% url 'users:register' %}">Регистрация</a>
+                    <a href="{% url 'users:login' %}" class="ui-button flex items-center space-x-2 bg-blue-50 hover:bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-medium transition-colors border border-blue-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+                        <span>Вход</span>
+                    </a>
+                    <a href="{% url 'users:register' %}" class="ui-button flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                        <span>Регистрация</span>
+                    </a>
                 {% endif %}
             </div>
         </div>
@@ -38,8 +92,58 @@
     </div>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4">
+    <main class="container mx-auto px-4 pb-8">
         {% block content %}{% endblock %}
     </main>
+
+    {% if request.user.is_authenticated %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navBadge = document.getElementById("nav-player-status-badge");
+            const navUsername = document.getElementById("nav-username");
+            
+            fetch("{% url 'api:api_player_sessions' request.user.username %}")
+                .then(r => r.json())
+                .then(data => {
+                    if (data.error) {
+                        return;
+                    }
+                    
+                    // Inject avatar if we have a UUID and it's not already there
+                    if (data.uuid && navUsername && !document.getElementById("nav-player-avatar")) {
+                        const cleanUuid = data.uuid.replace(/-/g, '');
+                        const iconHtml = `<div class="w-8 flex items-center justify-center">
+                            <img id="nav-player-avatar" src="https://api.mineatar.io/head/${cleanUuid}?scale=16" alt="${data.nickname}" class="w-full h-auto object-contain drop-shadow-sm" onerror="this.onerror=null; this.src='https://api.mineatar.io/head/MHF_Steve?scale=16'">
+                        </div>`;
+                        navUsername.insertAdjacentHTML('beforebegin', iconHtml);
+                    }
+                    
+                    // Update status badge if it exists
+                    if (navBadge && !document.getElementById("nav-unlinked-badge")) {
+                        // Create unlinked badge if needed or just use navBadge for online status
+                        // Wait, if it's already an online status badge, just update it.
+                        // If it's the "Не привязан" badge, we can KEEP it and add the online status next to it!
+                        
+                        // Let's create an online status badge right before the unlinked badge
+                        const statusClass = data.status === 'online' ? 
+                            "px-2 py-1 text-[10px] leading-none flex items-center font-bold uppercase rounded-full bg-green-100 text-green-600 border border-green-200 ml-1" : 
+                            "px-2 py-1 text-[10px] leading-none flex items-center font-bold uppercase rounded-full bg-gray-100 text-gray-500 border border-gray-200 ml-1";
+                        const statusText = data.status === 'online' ? "ONLINE" : "OFFLINE";
+                        
+                        if (navBadge.textContent.trim().toUpperCase() === "ЗАГРУЗКА...") {
+                            navBadge.textContent = statusText;
+                            navBadge.className = statusClass;
+                        } else if (navBadge.textContent.trim().toUpperCase() === "НЕ ПРИВЯЗАН") {
+                            // It's the unlinked badge, insert status badge before it
+                            const statusHtml = `<span class="${statusClass}">${statusText}</span>`;
+                            navBadge.insertAdjacentHTML('beforebegin', statusHtml);
+                            navBadge.id = "nav-unlinked-badge"; // prevent duplicate injection
+                        }
+                    }
+                })
+                .catch(() => {});
+        });
+    </script>
+    {% endif %}
 </body>
 </html>

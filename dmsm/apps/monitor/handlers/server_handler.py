@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.cache import cache
-from dmsm.apps.stats.models import Server
+from dmsm.apps.core.models import Server
 import logging
 
 logger = logging.getLogger(__name__)

@@ -1,0 +1,44 @@
+.graph-line {
+    fill: none;
+    stroke: url(#line-gradient);
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.15));
+}
+
+.graph-area {
+    opacity: 0;
+}
+
+.grid-line {
+    stroke: rgba(0, 0, 0, 0.05); /* Dark lines for light theme */
+    stroke-width: 1px;
+    stroke-dasharray: 4 4;
+}
+
+.grid-line-day {
+    stroke: rgba(0, 0, 0, 0.15); /* Stronger vertical lines for day boundaries */
+    stroke-width: 2px;
+    stroke-dasharray: none;
+}
+
+.tick text {
+    font-weight: 500;
+}
+
+.tick.day-tick text {
+    font-weight: 800;
+    fill: #374151; /* Darker gray for day names */
+}
+
+/* Red glow for the text when server is down */
+.text-red-glow {
+    color: #ef4444 !important;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.text-yellow-glow {
+    color: #eab308 !important;
+    text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+}

@@ -1,5 +1,5 @@
 from django.utils import timezone
-from dmsm.apps.stats.models import Player, Session
+from dmsm.apps.core.models import Player, Session
 
 def sync_sessions(players_dict=None, **kwargs):
     if players_dict is None:

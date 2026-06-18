@@ -38,19 +38,21 @@
 {% else %}
 <h2 class="text-2xl font-bold mb-4 text-center">Регистрация</h2>
 
-<form method="post" action="">
+<form method="post" action="" class="auth-form">
     {% csrf_token %}
     
-    <div class="mb-4">
+
+    
+    <div class="mb-6">
         {{ form.as_p }}
     </div>
 
-    <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
+    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors shadow-sm">
         Зарегистрироваться
     </button>
 </form>
 
-<p class="mt-4 text-center">
+<p class="mt-6 text-center text-gray-600">
     Уже есть аккаунт? <a href="{% url 'users:login' %}" class="text-blue-500">Войти</a>
 </p>
 {% endif %}

@@ -1,50 +1,165 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Профиль {{ nickname }} - DMSM{% endblock %}
 
+{% block extra_head %}
+<!-- Include D3.js -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Include custom graph CSS -->
+<link rel="stylesheet" href="{% static 'core/css/graph.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="bg-white p-6 rounded shadow max-w-2xl mx-auto mt-8">
-    <h1 class="text-3xl font-bold mb-6 text-gray-800">Профиль: {{ nickname }}</h1>
-    
-    {% if not is_linked %}
-        {% if is_own_profile %}
-        <div class="bg-blue-50 p-4 rounded mb-4 text-left border border-blue-200">
-            <h3 class="font-bold text-blue-800 mb-2">Аккаунт не привязан</h3>
-            <p class="text-sm text-blue-700 mb-2">Чтобы получить доступ ко всем функциям сайта и просматривать профили других игроков, привяжите свой игровой профиль:</p>
-            <ol class="list-decimal list-inside text-sm text-blue-700 space-y-1">
-                <li>Зайдите на сервер Minecraft</li>
-                <li>Введите в чат команду: <code class="bg-white px-1 py-0.5 rounded border border-blue-300 font-mono">/trigger link</code></li>
-                <li>Нажмите на появившуюся в чате ссылку</li>
-            </ol>
+<div class="max-w-5xl mx-auto mt-6">
+
+    <!-- Profile Header -->
+    <div
+        class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-between mb-6">
+        <div class="flex items-center space-x-4">
+            {% if has_played %}
+            <img src="https://api.mineatar.io/head/{{ player_uuid|cut:'-'|default:'MHF_Steve' }}?scale=32"
+                alt="{{ nickname }}" class="w-16 h-auto drop-shadow-sm"
+                onerror="this.onerror=null; this.src='https://api.mineatar.io/head/MHF_Steve?scale=32'">
+            {% endif %}
+            <div>
+                <h1 class="text-3xl font-black text-gray-800 flex items-center flex-wrap gap-y-2">
+                    <span>{{ nickname }}</span>
+                    {% if has_played %}
+                    <span id="player-status-badge"
+                        class="ml-3 px-2 py-1 text-[10px] leading-none font-bold uppercase rounded-full bg-gray-200 text-gray-500 border border-transparent flex items-center">Загрузка...</span>
+                    {% endif %}
+                    {% if not is_linked %}
+                    <span
+                        class="ml-3 px-2 py-1 text-[10px] leading-none font-bold uppercase rounded-full bg-blue-100 text-blue-600 border border-blue-200 flex items-center">Не
+                        привязан</span>
+                    {% endif %}
+                </h1>
+                <p class="text-sm text-gray-400 mt-1">Профиль игрока Minecraft</p>
+            </div>
         </div>
-        {% else %}
-        <div class="p-4 bg-gray-50 border border-gray-200 rounded text-center text-gray-600">
-            Данный пользователь еще не привязал свой игровой профиль.
+
+        {% if is_own_profile %}
+        <div class="mt-4 md:mt-0">
+            <form action="{% url 'users:logout' %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit"
+                    class="ui-button flex items-center space-x-2 bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-lg font-medium transition-colors border border-red-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                        </path>
+                    </svg>
+                    <span>Выйти</span>
+                </button>
+            </form>
         </div>
         {% endif %}
-    {% else %}
-    <div class="space-y-4">
-        <div class="flex justify-between border-b pb-2">
-            <span class="text-gray-600">Статус привязки к Minecraft:</span>
-            <span class="font-bold text-green-600">Привязан</span>
+    </div>
+
+    {% if not is_linked %}
+    {% if is_own_profile %}
+    <div class="bg-blue-50 p-6 rounded-lg mb-6 text-left border border-blue-200 shadow-sm">
+        <h3 class="font-bold text-blue-800 text-lg mb-2">Аккаунт не привязан</h3>
+        <p class="text-sm text-blue-700 mb-4">Чтобы получить доступ ко всем функциям сайта и просматривать профили
+            других игроков, привяжите свой игровой профиль:</p>
+        <ol
+            class="list-decimal list-inside text-sm text-blue-800 space-y-2 bg-white/50 p-4 rounded border border-blue-100">
+            <li>Зайдите на сервер Minecraft: <code
+                    class="bg-white px-2 py-1 rounded border border-blue-300 font-mono font-bold cursor-pointer hover:bg-blue-50 transition-colors"
+                    onclick="copyToClipboard(this)" title="Нажмите, чтобы скопировать">{{ minecraft_server_ip }}</code>
+            </li>
+            <li>Введите в чат команду: <code
+                    class="bg-white px-2 py-1 rounded border border-blue-300 font-mono font-bold cursor-pointer hover:bg-blue-50 transition-colors"
+                    onclick="copyToClipboard(this)" title="Нажмите, чтобы скопировать">/trigger link</code></li>
+            <li>Нажмите на появившуюся в чате зеленую ссылку</li>
+        </ol>
+        <script>
+            function copyToClipboard(el) {
+                const text = el.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    el.classList.add('bg-green-100', 'border-green-400', 'text-green-800');
+                    el.classList.remove('bg-white', 'border-blue-300');
+                    setTimeout(() => {
+                        el.classList.remove('bg-green-100', 'border-green-400', 'text-green-800');
+                        el.classList.add('bg-white', 'border-blue-300');
+                    }, 1000);
+                });
+            }
+        </script>
+    </div>
+    {% elif not has_played %}
+    <div class="p-8 bg-gray-50 border border-gray-200 rounded-lg text-center text-gray-500 shadow-sm mb-6">
+        <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+            </path>
+        </svg>
+        <p>Данный пользователь еще не заходил на сервер.</p>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    {% if has_played %}
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-center">
+            <div class="p-3 rounded-full bg-blue-50 text-blue-500 mr-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">Первый вход</p>
+                <p id="stat-first-seen" class="text-xl font-bold text-gray-800">Загрузка...</p>
+            </div>
         </div>
-        
-        <div class="flex justify-between border-b pb-2">
-            <span class="text-gray-600">Количество входов на сервер:</span>
-            <span class="font-bold">{{ sessions_count }}</span>
+
+        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-center">
+            <div class="p-3 rounded-full bg-green-50 text-green-500 mr-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">Наиграно времени</p>
+                <p id="stat-total-playtime" class="text-xl font-bold text-gray-800">Загрузка...</p>
+            </div>
         </div>
-        
-        <div class="flex justify-between border-b pb-2">
-            <span class="text-gray-600">Длительность последней сессии:</span>
-            <span class="font-bold">
-                {% if last_session_length %}
-                    {{ last_session_length }}
-                {% else %}
-                    Нет данных
-                {% endif %}
-            </span>
+
+        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-center">
+            <div class="p-3 rounded-full bg-yellow-50 text-yellow-500 mr-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                    </path>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">Средняя сессия</p>
+                <p id="stat-avg-session" class="text-xl font-bold text-gray-800">Загрузка...</p>
+            </div>
         </div>
     </div>
+
+    <!-- Combined Graph Container -->
+    <div class="relative">
+        <div id="profile-graph-container" class="w-full h-[350px] cursor-crosshair"></div>
+        <div id="profile-graph-tooltip" class="absolute hidden pointer-events-none z-20 flex flex-col items-center">
+            <div
+                class="bg-white text-gray-800 px-3 py-1.5 rounded-lg shadow-md text-sm font-bold border border-gray-200 mb-1">
+                <span id="profile-tooltip-value"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.API_PLAYER_SESSIONS = "{% url 'api:api_player_sessions' nickname=nickname %}";
+    </script>
+    <script src="{% static 'core/js/profile_graph.js' %}?v={% now 'U' %}"></script>
     {% endif %}
 </div>
 {% endblock %}

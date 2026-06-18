@@ -21,5 +21,13 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('dmsm.apps.users.urls')),
-    path('', TemplateView.as_view(template_name='stats/home.html'), name='home'),
+    path('stats/', include('dmsm.apps.core.urls')),
+    path('api/', include('dmsm.apps.api.urls')),
+    path('', TemplateView.as_view(template_name='core/home.html'), name='home'),
 ]
+handler404 = 'dmsm.apps.core.views.error_404'
+handler500 = 'dmsm.apps.core.views.error_500'
+handler403 = 'dmsm.apps.core.views.error_403'
+handler400 = 'dmsm.apps.core.views.error_400'
+
+ 

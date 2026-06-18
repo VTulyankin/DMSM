@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class StatsConfig(AppConfig):
+class ApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'dmsm.apps.stats'
+    name = 'dmsm.apps.api'

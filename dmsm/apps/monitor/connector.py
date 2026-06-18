@@ -229,6 +229,7 @@ class RCONConnector(Connector):
                 return None
     
     def maintain_connection(self):
+        last_ping = time.time()
         while True:
             try:
                 if self.auth_failed:
@@ -242,6 +243,11 @@ class RCONConnector(Connector):
                     with self.lock:
                         if not self.sock:
                             self.connect()
+                            last_ping = time.time()
+                else:
+                    if time.time() - last_ping > 60:
+                        self.command("list uuids")
+                        last_ping = time.time()
                 
                 time.sleep(1)
             except Exception as e:

@@ -6,8 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,12 +17,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dmsm.apps.monitor',
-    'dmsm.apps.stats',
+    'dmsm.apps.core',
     'dmsm.apps.users',
+    'dmsm.apps.api',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,6 +60,7 @@ DATABASES = {
         'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': os.environ['DB_HOST'],
         'PORT': os.environ['DB_PORT'],
+        'CONN_MAX_AGE': 60,
     }
 }
 
@@ -82,6 +85,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 PTERODACTYL_URL = os.environ.get('PTERODACTYL_URL')
 PTERODACTYL_API_KEY = os.environ.get('PTERODACTYL_API_KEY')
@@ -103,3 +107,5 @@ TELLRAW_LINK_MESSAGE = [
     {"text": "<DMSM> Для привязки аккаунта ", "color": "white"},
     {"text": "[перейди по ссылке]", "color": "green", "is_link": True}
 ]
+MINECRAFT_SERVER_IP = os.environ.get('MINECRAFT_SERVER_IP', 'play.example.com')
+STATIC_ROOT = BASE_DIR / 'staticfiles'

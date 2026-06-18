@@ -7,45 +7,11 @@ from django.core.signing import loads, SignatureExpired, BadSignature
 from django.contrib import messages
 from django.contrib.auth.models import User
 from dmsm.apps.users.models import UserProfile
-from dmsm.apps.stats.models import Player, Server, Session
-from dmsm.apps.monitor.handler import Handler
-from dmsm.apps.monitor.supervisor import Supervisor
-from dmsm.apps.monitor.connector import RCONConnector, PterodactylConnector
+from dmsm.apps.core.models import Player, Server, Session
 from dmsm.apps.users.forms import CustomUserCreationForm
-import threading
-import time
-
-def send_one_off_command(cmd):
-    handler = Handler()
-    supervisor = Supervisor()
-    handler.supervisor = supervisor
-    
-    if supervisor.services['rcon']['has_config']:
-        rcon = RCONConnector(handler, supervisor)
-        rcon.connect()
-        handler.rcon = rcon
-        supervisor.update_mode()
-        handler.send_command(cmd)
-        if rcon.sock:
-            rcon.sock.close()
-    elif supervisor.services['ptero']['has_config']:
-        ptero = PterodactylConnector(handler, supervisor)
-        handler.ptero = ptero
-        def run_ws():
-            ptero.connect()
-        t = threading.Thread(target=run_ws, daemon=True)
-        t.start()
-        time.sleep(1) 
-        handler.send_command(cmd)
-        if ptero.ws:
-            ptero.ws.close()
 
 class RegisterView(View):
     def get(self, request):
-        if getattr(settings, 'WHITELIST_MODE', False):
-            last_server = Server.objects.last()
-            if not last_server or not last_server.is_online:
-                return render(request, 'users/registration_closed.html', {'message': 'Сервер недоступен, регистрация временно закрыта.'})
         
         nickname = request.GET.get('nickname', '')
         if nickname and not request.session.get(nickname):
@@ -59,11 +25,6 @@ class RegisterView(View):
         return render(request, 'users/register.html', {'form': form, 'nickname': nickname})
 
     def post(self, request):
-        if getattr(settings, 'WHITELIST_MODE', False):
-            last_server = Server.objects.last()
-            if not last_server or not last_server.is_online:
-                return render(request, 'users/registration_closed.html', {'message': 'Сервер недоступен, регистрация временно закрыта.'})
-                
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -80,7 +41,8 @@ class RegisterView(View):
             
             whitelist_mode = getattr(settings, 'WHITELIST_MODE', False)
             if whitelist_mode:
-                send_one_off_command(f'whitelist add {user.username}')
+                profile.is_pending_whitelist = True
+                profile.save()
                 
             login(request, user)
             
@@ -256,35 +218,29 @@ class UserProfileView(View):
             messages.error(request, "Для просмотра профилей других игроков необходимо авторизоваться и привязать свой игровой аккаунт.")
             return redirect('/')
             
+        player = Player.objects.filter(nickname=nickname).first()
         user = User.objects.filter(username=nickname).first()
-        if not user:
-            messages.error(request, "Пользователь не найден.")
+        
+        if not player and not user:
+            messages.error(request, "Профиль не найден.")
             return redirect('/')
             
-        profile = getattr(user, 'userprofile', None)
-        is_linked = profile and profile.player is not None
+        has_played = player is not None
         
-        sessions_count = 0
-        last_session_length = None
-        
-        if is_linked:
-            player = profile.player
-            sessions = Session.objects.filter(player=player)
-            sessions_count = sessions.count()
-            
-            last_completed = sessions.filter(logout_time__isnull=False).order_by('-logout_time').first()
-            if last_completed and last_completed.login_time:
-                duration = last_completed.logout_time - last_completed.login_time
-                total_seconds = int(duration.total_seconds())
-                hours, remainder = divmod(total_seconds, 3600)
-                minutes, seconds = divmod(remainder, 60)
-                last_session_length = f"{hours} ч. {minutes} мин. {seconds} сек."
+        is_linked = False
+        if user:
+            profile = getattr(user, 'userprofile', None)
+            if profile and profile.player:
+                is_linked = True
+
+        player_uuid = player.uuid if player else None
         
         context = {
             'nickname': nickname,
             'is_linked': is_linked,
+            'has_played': has_played,
             'is_own_profile': is_own_profile,
-            'sessions_count': sessions_count,
-            'last_session_length': last_session_length,
+            'player_uuid': player_uuid,
+            'minecraft_server_ip': getattr(settings, 'MINECRAFT_SERVER_IP', 'play.example.com'),
         }
         return render(request, 'users/profile.html', context)

@@ -44,5 +44,24 @@ class Command(BaseCommand):
         handler.send_command('/scoreboard players enable @a link')
         handler.send_command('/version')
 
+        from django.conf import settings
+        from dmsm.apps.users.models import UserProfile
+        
+        def process_whitelist_queue():
+            while True:
+                time.sleep(10)
+                try:
+                    if supervisor.mode != 'offline':
+                        pending_profiles = UserProfile.objects.filter(is_pending_whitelist=True)
+                        for profile in pending_profiles:
+                            handler.send_command(f'whitelist add {profile.user.username}')
+                            profile.is_pending_whitelist = False
+                            profile.save()
+                except Exception as e:
+                    logging.error(f"Error processing whitelist queue: {e}")
+
+        if getattr(settings, 'WHITELIST_MODE', False):
+            threading.Thread(target=process_whitelist_queue, daemon=True).start()
+
         while True:
             time.sleep(1)
