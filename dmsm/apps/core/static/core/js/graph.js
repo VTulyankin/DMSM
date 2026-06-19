@@ -448,8 +448,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateUI(online, status) {
         if (status === 'offline') {
-            currentOnlineEl.textContent = "Откл";
-            currentOnlineEl.className = "text-4xl font-black text-gray-400 drop-shadow-sm transition-colors cursor-pointer hover:text-gray-300";
+            currentOnlineEl.textContent = "Нет связи";
+            currentOnlineEl.className = "text-2xl sm:text-3xl font-black text-gray-400 drop-shadow-sm transition-colors cursor-pointer hover:text-gray-300";
         } else if (status === 'downtime') {
             currentOnlineEl.textContent = "Откл";
             currentOnlineEl.className = "text-4xl font-black text-red-500 drop-shadow-sm transition-colors cursor-pointer hover:text-red-400";

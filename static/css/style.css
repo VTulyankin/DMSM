@@ -5,6 +5,19 @@
     --color-base-blue: #0EA6EE;
     --color-base-red: #F25226;
     --color-base-yellow: #FEB918;
+    --color-base-gray: #9CA3AF;
+
+    /* Gray Palette */
+    --color-gray-50: color-mix(in srgb, var(--color-base-gray) 10%, white);
+    --color-gray-100: color-mix(in srgb, var(--color-base-gray) 20%, white);
+    --color-gray-200: color-mix(in srgb, var(--color-base-gray) 40%, white);
+    --color-gray-300: color-mix(in srgb, var(--color-base-gray) 60%, white);
+    --color-gray-400: color-mix(in srgb, var(--color-base-gray) 80%, white);
+    --color-gray-500: var(--color-base-gray);
+    --color-gray-600: color-mix(in srgb, var(--color-base-gray) 85%, black);
+    --color-gray-700: color-mix(in srgb, var(--color-base-gray) 70%, black);
+    --color-gray-800: color-mix(in srgb, var(--color-base-gray) 50%, black);
+    --color-gray-900: color-mix(in srgb, var(--color-base-gray) 30%, black);
 
     /* Green Palette */
     --color-green-50: color-mix(in srgb, var(--color-base-green) 10%, white);

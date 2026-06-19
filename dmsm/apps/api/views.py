@@ -44,6 +44,9 @@ def api_online_events(request):
                 'end': timezone.now().isoformat(),
                 'mode': 'offline'
             })
+        else:
+            # Extend the last monitor into the future by 60 seconds to avoid clock skew / network latency issues
+            monitor_events[-1]['end'] = (timezone.now() + datetime.timedelta(seconds=60)).isoformat()
             
     return JsonResponse({'events': events, 'monitors': monitor_events})
 
