@@ -364,7 +364,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 timeSet.add(e);
                 timeSet.add(e + 1); // Ensure gap is recorded
             });
-            let times = Array.from(timeSet).sort((a, b) => a - b);
+            let times = Array.from(timeSet)
+                .sort((a, b) => a - b)
+                .filter(t => t <= new Date().getTime());
             
             let lastVal = 0;
             let lastServerStatus = 'online';
@@ -663,7 +665,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tooltipValue.textContent = info.val;
         }
         
-        tooltipDot.className = `w-3 h-3 bg-white rounded-full shadow border-2 absolute -bottom-1.5 left-1/2 -ml-1.5 ${colorClass}`;
+        tooltipDot.className = `w-3 h-3 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors border-2 absolute -bottom-1.5 left-1/2 -ml-1.5 ${colorClass}`;
     }
 
     async function loadPlayersList(timestampMs) {
