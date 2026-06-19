@@ -195,16 +195,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const geomData = data.filter(d => !d.isArtificial);
         if (geomData.length === 0) return "";
         
-        const rawPoints = [];
+        const essentialData = [];
         for (let i = 0; i < geomData.length; i++) {
-            const pt = geomData[i];
+            if (i === 0 || i === geomData.length - 1) {
+                essentialData.push(geomData[i]);
+            } else if (geomData[i].value !== geomData[i-1].value) {
+                essentialData.push(geomData[i]);
+            }
+        }
+        
+        const rawPoints = [];
+        for (let i = 0; i < essentialData.length; i++) {
+            const pt = essentialData[i];
             const x = currentXScale(pt.time);
             const y = yScale(pt.value);
             
             if (i === 0) {
                 rawPoints.push({x, y});
             } else {
-                const prev = geomData[i-1];
+                const prev = essentialData[i-1];
                 const prevY = yScale(prev.value);
                 // Step Corner
                 rawPoints.push({x: x, y: prevY}); 
