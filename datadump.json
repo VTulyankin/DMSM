@@ -1,0 +1,2782 @@
+[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$4wlz8bct5m209HcOtAVsvU$NqWeVQr0MKErW+LQ79PBr8yoCdnMM8ms1yx4TpzNI/Q=",
+        "last_login": "2026-06-17T22:48:06.205Z",
+        "is_superuser": true,
+        "username": "Vi_Tul",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-06-16T23:03:52.825Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$UqUHzeUEq16SfcJ1xaypz0$OWYnFx7OM2ehTr8ZsoPvTToT6PGsmD2QzMZPbimjbXc=",
+        "last_login": "2026-06-17T17:12:30.032Z",
+        "is_superuser": false,
+        "username": "luT_iV",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-16T23:05:43.466Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$A4cnXHwQ73YUoaBYVNPWNI$+BeKciedHxJUqpyk2O56Lruwe+YYZNh2Jvkpl9QNvwo=",
+        "last_login": "2026-06-17T19:55:35.543Z",
+        "is_superuser": false,
+        "username": "Chel",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-17T19:31:32.751Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$Rlpjmos81WgJHwRheAZZmT$pfJ2bP1aL3If20TgkixM/wVFO3NG8NCSzA7Ezpif0c8=",
+        "last_login": "2026-06-17T19:32:47.499Z",
+        "is_superuser": false,
+        "username": "Aboba2",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-17T19:32:46.994Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$hGZR0hGgHTeVPgxkI9UOVM$HW3Z4UosJBu2NZvHYBlT0HBTInkhEymHa3tsXQoZZfk=",
+        "last_login": "2026-06-17T19:54:47.908Z",
+        "is_superuser": false,
+        "username": "NoError",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-17T19:54:47.406Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$TlB0DnrtFJunjcn8s1PvBp$i/m0gjh7d/sL+mbBw8zZ7i3YIo2Uzpsul7B0dd/Ab3A=",
+        "last_login": "2026-06-17T22:24:53.860Z",
+        "is_superuser": false,
+        "username": "Aboba",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-17T20:03:10.329Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "core.player",
+    "pk": 1,
+    "fields": {
+        "uuid": "7664409b-fcbb-4c70-828a-133298c073fc",
+        "nickname": "Vi_Tul",
+        "first_seen": "2026-06-15T03:47:51.139Z"
+    }
+},
+{
+    "model": "core.player",
+    "pk": 2,
+    "fields": {
+        "uuid": "ca61942b-1a62-35b4-8dfa-dccf4daa81a2",
+        "nickname": "luT_iV",
+        "first_seen": "2026-06-15T19:00:34.158Z"
+    }
+},
+{
+    "model": "core.player",
+    "pk": 3,
+    "fields": {
+        "uuid": "7e883749-804a-3234-a7fc-ca26adbec373",
+        "nickname": "Aboba",
+        "first_seen": "2026-06-16T23:15:13.320Z"
+    }
+},
+{
+    "model": "core.player",
+    "pk": 4,
+    "fields": {
+        "uuid": "ac67bc93-4de9-32ea-8762-db58fba92af2",
+        "nickname": "Chel",
+        "first_seen": "2026-06-17T11:58:09.841Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T03:47:51.141Z",
+        "logout_time": "2026-06-15T03:48:29.210Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 2,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T04:57:52.344Z",
+        "logout_time": "2026-06-15T04:58:06.531Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 3,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T04:58:57.026Z",
+        "logout_time": "2026-06-15T04:59:53.550Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 4,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T17:12:23.825Z",
+        "logout_time": "2026-06-15T19:11:15.841Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 5,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-15T19:00:34.160Z",
+        "logout_time": "2026-06-15T19:10:55.323Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 6,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T19:11:31.241Z",
+        "logout_time": "2026-06-15T20:02:11.369Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 7,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T20:04:39.560Z",
+        "logout_time": "2026-06-15T20:35:08.681Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 8,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T21:17:47.467Z",
+        "logout_time": "2026-06-15T21:46:45.681Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 9,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T21:54:43.192Z",
+        "logout_time": "2026-06-15T21:55:02.550Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 10,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-15T21:56:48.063Z",
+        "logout_time": "2026-06-15T21:57:07.462Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 11,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T09:37:20.571Z",
+        "logout_time": "2026-06-16T09:37:32.880Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 12,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T09:37:43.764Z",
+        "logout_time": "2026-06-16T09:37:51.961Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 13,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T15:29:38.778Z",
+        "logout_time": "2026-06-16T15:30:13.322Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 14,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T15:31:02.522Z",
+        "logout_time": "2026-06-16T15:31:45.875Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 15,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T15:31:50.132Z",
+        "logout_time": "2026-06-16T15:33:46.224Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 16,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T15:34:08.167Z",
+        "logout_time": "2026-06-16T17:08:54.722Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 17,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T17:13:34.422Z",
+        "logout_time": "2026-06-16T18:09:07.301Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 18,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T18:13:05.770Z",
+        "logout_time": "2026-06-16T18:13:11.618Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 19,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T18:13:39.790Z",
+        "logout_time": "2026-06-16T18:27:01.892Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 20,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T18:29:48.805Z",
+        "logout_time": "2026-06-16T18:47:35.615Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 21,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T18:49:33.326Z",
+        "logout_time": "2026-06-16T18:54:12.740Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 22,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T18:54:44.634Z",
+        "logout_time": "2026-06-16T19:00:16.424Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 23,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T20:13:23.406Z",
+        "logout_time": "2026-06-16T20:13:53.760Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 24,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T20:13:53.788Z",
+        "logout_time": "2026-06-16T20:13:53.965Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 25,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T20:16:21.462Z",
+        "logout_time": "2026-06-16T20:17:43.194Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 26,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T20:20:01.420Z",
+        "logout_time": "2026-06-16T22:37:59.175Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 27,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T22:45:41.920Z",
+        "logout_time": "2026-06-16T23:01:47.209Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 28,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-16T23:03:08.023Z",
+        "logout_time": "2026-06-16T23:05:50.066Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 29,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-16T23:08:52.373Z",
+        "logout_time": "2026-06-16T23:14:12.865Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 30,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-16T23:15:13.321Z",
+        "logout_time": "2026-06-16T23:33:42.898Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 31,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-16T23:33:57.622Z",
+        "logout_time": "2026-06-16T23:38:36.311Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 32,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T00:16:38.615Z",
+        "logout_time": "2026-06-17T00:17:36.361Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 33,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T00:33:29.389Z",
+        "logout_time": "2026-06-17T01:09:40.191Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 34,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T01:31:57.314Z",
+        "logout_time": "2026-06-17T09:19:55.737Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 35,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T10:51:22.988Z",
+        "logout_time": "2026-06-17T10:53:22.128Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 36,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-17T10:54:21.041Z",
+        "logout_time": "2026-06-17T10:58:11.525Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 37,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T10:54:49.833Z",
+        "logout_time": "2026-06-17T10:58:11.525Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 38,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-17T11:47:06.502Z",
+        "logout_time": "2026-06-17T11:54:08.009Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 39,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-17T11:54:26.746Z",
+        "logout_time": "2026-06-17T11:56:52.385Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 40,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T11:54:29.241Z",
+        "logout_time": "2026-06-17T14:03:23.004Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 41,
+    "fields": {
+        "player": 4,
+        "login_time": "2026-06-17T11:58:09.842Z",
+        "logout_time": "2026-06-17T11:58:43.687Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 42,
+    "fields": {
+        "player": 3,
+        "login_time": "2026-06-17T17:47:22.026Z",
+        "logout_time": "2026-06-17T20:55:02.407Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 43,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-17T22:26:17.392Z",
+        "logout_time": "2026-06-17T22:31:43.296Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 44,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-17T22:32:03.779Z",
+        "logout_time": "2026-06-17T22:34:43.093Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 45,
+    "fields": {
+        "player": 2,
+        "login_time": "2026-06-17T22:39:11.664Z",
+        "logout_time": "2026-06-17T22:39:25.593Z"
+    }
+},
+{
+    "model": "core.session",
+    "pk": 46,
+    "fields": {
+        "player": 1,
+        "login_time": "2026-06-19T10:17:30.717Z",
+        "logout_time": null
+    }
+},
+{
+    "model": "core.server",
+    "pk": 10,
+    "fields": {
+        "timestamp": "2026-06-15T03:23:59.591Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 11,
+    "fields": {
+        "timestamp": "2026-06-15T03:37:10.201Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 12,
+    "fields": {
+        "timestamp": "2026-06-15T03:44:00.944Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 13,
+    "fields": {
+        "timestamp": "2026-06-15T03:47:51.135Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 14,
+    "fields": {
+        "timestamp": "2026-06-15T03:48:29.207Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 15,
+    "fields": {
+        "timestamp": "2026-06-15T03:48:43.071Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 16,
+    "fields": {
+        "timestamp": "2026-06-15T03:49:19.056Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 17,
+    "fields": {
+        "timestamp": "2026-06-15T03:55:14.360Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 18,
+    "fields": {
+        "timestamp": "2026-06-15T03:56:05.792Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 19,
+    "fields": {
+        "timestamp": "2026-06-15T03:57:00.219Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 20,
+    "fields": {
+        "timestamp": "2026-06-15T03:57:27.358Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 21,
+    "fields": {
+        "timestamp": "2026-06-15T04:02:47.593Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 22,
+    "fields": {
+        "timestamp": "2026-06-15T04:02:56.174Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 23,
+    "fields": {
+        "timestamp": "2026-06-15T04:22:28.001Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 24,
+    "fields": {
+        "timestamp": "2026-06-15T04:26:14.024Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 25,
+    "fields": {
+        "timestamp": "2026-06-15T04:26:30.342Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 26,
+    "fields": {
+        "timestamp": "2026-06-15T04:28:10.634Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 27,
+    "fields": {
+        "timestamp": "2026-06-15T04:57:24.158Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 28,
+    "fields": {
+        "timestamp": "2026-06-15T04:57:26.218Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 29,
+    "fields": {
+        "timestamp": "2026-06-15T04:57:52.341Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 30,
+    "fields": {
+        "timestamp": "2026-06-15T04:58:06.530Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 31,
+    "fields": {
+        "timestamp": "2026-06-15T04:58:43.224Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 32,
+    "fields": {
+        "timestamp": "2026-06-15T04:58:57.022Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 33,
+    "fields": {
+        "timestamp": "2026-06-15T04:59:53.550Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 34,
+    "fields": {
+        "timestamp": "2026-06-15T14:26:50.792Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 35,
+    "fields": {
+        "timestamp": "2026-06-15T17:12:23.823Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 36,
+    "fields": {
+        "timestamp": "2026-06-15T19:00:34.154Z",
+        "is_online": true,
+        "player_count": 2,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 37,
+    "fields": {
+        "timestamp": "2026-06-15T19:10:55.321Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 38,
+    "fields": {
+        "timestamp": "2026-06-15T19:11:15.840Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 39,
+    "fields": {
+        "timestamp": "2026-06-15T19:11:31.240Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 40,
+    "fields": {
+        "timestamp": "2026-06-15T19:59:30.711Z",
+        "is_online": false,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 41,
+    "fields": {
+        "timestamp": "2026-06-15T20:01:59.656Z",
+        "is_online": false,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 42,
+    "fields": {
+        "timestamp": "2026-06-15T20:02:11.231Z",
+        "is_online": false,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 43,
+    "fields": {
+        "timestamp": "2026-06-15T20:02:11.368Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 44,
+    "fields": {
+        "timestamp": "2026-06-15T20:02:11.910Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 45,
+    "fields": {
+        "timestamp": "2026-06-15T20:04:39.557Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 46,
+    "fields": {
+        "timestamp": "2026-06-15T20:05:15.016Z",
+        "is_online": false,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 47,
+    "fields": {
+        "timestamp": "2026-06-15T20:06:06.875Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 48,
+    "fields": {
+        "timestamp": "2026-06-15T20:35:08.680Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 49,
+    "fields": {
+        "timestamp": "2026-06-15T21:15:27.619Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 50,
+    "fields": {
+        "timestamp": "2026-06-15T21:15:36.878Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 51,
+    "fields": {
+        "timestamp": "2026-06-15T21:17:47.464Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 52,
+    "fields": {
+        "timestamp": "2026-06-15T21:39:16.492Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 53,
+    "fields": {
+        "timestamp": "2026-06-15T21:39:51.078Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 54,
+    "fields": {
+        "timestamp": "2026-06-15T21:39:55.739Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 55,
+    "fields": {
+        "timestamp": "2026-06-15T21:40:09.821Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 56,
+    "fields": {
+        "timestamp": "2026-06-15T21:40:14.481Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 57,
+    "fields": {
+        "timestamp": "2026-06-15T21:45:30.142Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 58,
+    "fields": {
+        "timestamp": "2026-06-15T21:46:45.673Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 59,
+    "fields": {
+        "timestamp": "2026-06-15T21:54:43.187Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 60,
+    "fields": {
+        "timestamp": "2026-06-15T21:54:50.179Z",
+        "is_online": false,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 61,
+    "fields": {
+        "timestamp": "2026-06-15T21:54:59.338Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 62,
+    "fields": {
+        "timestamp": "2026-06-15T21:55:02.549Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 63,
+    "fields": {
+        "timestamp": "2026-06-15T21:56:48.059Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 64,
+    "fields": {
+        "timestamp": "2026-06-15T21:57:07.462Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 65,
+    "fields": {
+        "timestamp": "2026-06-15T21:57:15.664Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 66,
+    "fields": {
+        "timestamp": "2026-06-16T08:36:34.140Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 67,
+    "fields": {
+        "timestamp": "2026-06-16T08:36:32.850Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 68,
+    "fields": {
+        "timestamp": "2026-06-16T09:37:20.566Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 69,
+    "fields": {
+        "timestamp": "2026-06-16T09:37:32.879Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 70,
+    "fields": {
+        "timestamp": "2026-06-16T09:37:43.762Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 71,
+    "fields": {
+        "timestamp": "2026-06-16T09:37:51.957Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 72,
+    "fields": {
+        "timestamp": "2026-06-16T14:31:36.290Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 73,
+    "fields": {
+        "timestamp": "2026-06-16T14:31:54.950Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "none"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 74,
+    "fields": {
+        "timestamp": "2026-06-16T14:33:01.185Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 75,
+    "fields": {
+        "timestamp": "2026-06-16T15:26:57.808Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 76,
+    "fields": {
+        "timestamp": "2026-06-16T15:29:38.772Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 77,
+    "fields": {
+        "timestamp": "2026-06-16T15:30:13.322Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 78,
+    "fields": {
+        "timestamp": "2026-06-16T15:30:23.510Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 79,
+    "fields": {
+        "timestamp": "2026-06-16T15:30:37.138Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 80,
+    "fields": {
+        "timestamp": "2026-06-16T15:31:02.517Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 81,
+    "fields": {
+        "timestamp": "2026-06-16T15:31:42.114Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 82,
+    "fields": {
+        "timestamp": "2026-06-16T15:31:43.852Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 83,
+    "fields": {
+        "timestamp": "2026-06-16T15:31:45.875Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 84,
+    "fields": {
+        "timestamp": "2026-06-16T15:31:50.129Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 85,
+    "fields": {
+        "timestamp": "2026-06-16T15:33:46.224Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 86,
+    "fields": {
+        "timestamp": "2026-06-16T15:33:54.402Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 87,
+    "fields": {
+        "timestamp": "2026-06-16T15:34:08.165Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 88,
+    "fields": {
+        "timestamp": "2026-06-16T15:35:49.219Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 89,
+    "fields": {
+        "timestamp": "2026-06-16T15:35:50.879Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 90,
+    "fields": {
+        "timestamp": "2026-06-16T15:37:06.309Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 91,
+    "fields": {
+        "timestamp": "2026-06-16T15:37:08.008Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 92,
+    "fields": {
+        "timestamp": "2026-06-16T15:37:26.718Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 93,
+    "fields": {
+        "timestamp": "2026-06-16T15:37:28.453Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 94,
+    "fields": {
+        "timestamp": "2026-06-16T15:38:12.174Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 95,
+    "fields": {
+        "timestamp": "2026-06-16T15:38:13.922Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 96,
+    "fields": {
+        "timestamp": "2026-06-16T15:38:55.542Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 97,
+    "fields": {
+        "timestamp": "2026-06-16T15:38:57.210Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 98,
+    "fields": {
+        "timestamp": "2026-06-16T15:39:38.342Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 99,
+    "fields": {
+        "timestamp": "2026-06-16T15:39:40.102Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 100,
+    "fields": {
+        "timestamp": "2026-06-16T16:54:55.917Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 101,
+    "fields": {
+        "timestamp": "2026-06-16T16:54:57.501Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 102,
+    "fields": {
+        "timestamp": "2026-06-16T17:02:21.289Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 103,
+    "fields": {
+        "timestamp": "2026-06-16T17:02:22.824Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 104,
+    "fields": {
+        "timestamp": "2026-06-16T17:08:54.718Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 105,
+    "fields": {
+        "timestamp": "2026-06-16T17:13:29.736Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 106,
+    "fields": {
+        "timestamp": "2026-06-16T17:13:34.418Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 107,
+    "fields": {
+        "timestamp": "2026-06-16T18:09:07.299Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 108,
+    "fields": {
+        "timestamp": "2026-06-16T18:13:02.703Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 109,
+    "fields": {
+        "timestamp": "2026-06-16T18:13:05.762Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 110,
+    "fields": {
+        "timestamp": "2026-06-16T18:13:11.617Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 111,
+    "fields": {
+        "timestamp": "2026-06-16T18:13:20.023Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 112,
+    "fields": {
+        "timestamp": "2026-06-16T18:13:39.785Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 113,
+    "fields": {
+        "timestamp": "2026-06-16T18:27:01.886Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 114,
+    "fields": {
+        "timestamp": "2026-06-16T18:27:02.219Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 115,
+    "fields": {
+        "timestamp": "2026-06-16T18:27:10.415Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 116,
+    "fields": {
+        "timestamp": "2026-06-16T18:27:04.345Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 117,
+    "fields": {
+        "timestamp": "2026-06-16T18:27:11.244Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 118,
+    "fields": {
+        "timestamp": "2026-06-16T18:29:48.802Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 119,
+    "fields": {
+        "timestamp": "2026-06-16T18:47:25.487Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 120,
+    "fields": {
+        "timestamp": "2026-06-16T18:47:30.525Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 121,
+    "fields": {
+        "timestamp": "2026-06-16T18:47:35.610Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 122,
+    "fields": {
+        "timestamp": "2026-06-16T18:49:33.324Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 123,
+    "fields": {
+        "timestamp": "2026-06-16T18:54:12.738Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 124,
+    "fields": {
+        "timestamp": "2026-06-16T18:54:12.737Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 125,
+    "fields": {
+        "timestamp": "2026-06-16T18:54:20.349Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 126,
+    "fields": {
+        "timestamp": "2026-06-16T18:54:21.454Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 127,
+    "fields": {
+        "timestamp": "2026-06-16T18:54:44.630Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 128,
+    "fields": {
+        "timestamp": "2026-06-16T19:00:16.423Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 129,
+    "fields": {
+        "timestamp": "2026-06-16T19:00:16.904Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 130,
+    "fields": {
+        "timestamp": "2026-06-16T19:00:28.313Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 131,
+    "fields": {
+        "timestamp": "2026-06-16T19:00:49.708Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 132,
+    "fields": {
+        "timestamp": "2026-06-16T19:00:50.995Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 133,
+    "fields": {
+        "timestamp": "2026-06-16T19:02:14.244Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 134,
+    "fields": {
+        "timestamp": "2026-06-16T19:02:14.529Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 135,
+    "fields": {
+        "timestamp": "2026-06-16T20:13:23.404Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 136,
+    "fields": {
+        "timestamp": "2026-06-16T20:13:53.756Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 137,
+    "fields": {
+        "timestamp": "2026-06-16T20:13:53.786Z",
+        "is_online": false,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 138,
+    "fields": {
+        "timestamp": "2026-06-16T20:13:53.964Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 139,
+    "fields": {
+        "timestamp": "2026-06-16T20:13:58.793Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 140,
+    "fields": {
+        "timestamp": "2026-06-16T20:14:58.850Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 141,
+    "fields": {
+        "timestamp": "2026-06-16T20:14:59.665Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 142,
+    "fields": {
+        "timestamp": "2026-06-16T20:16:21.461Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 143,
+    "fields": {
+        "timestamp": "2026-06-16T20:17:43.189Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 144,
+    "fields": {
+        "timestamp": "2026-06-16T20:18:24.323Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 145,
+    "fields": {
+        "timestamp": "2026-06-16T20:20:01.414Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 146,
+    "fields": {
+        "timestamp": "2026-06-16T22:37:59.170Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 147,
+    "fields": {
+        "timestamp": "2026-06-16T22:45:41.917Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 148,
+    "fields": {
+        "timestamp": "2026-06-16T23:01:47.205Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 149,
+    "fields": {
+        "timestamp": "2026-06-16T23:03:08.022Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 150,
+    "fields": {
+        "timestamp": "2026-06-16T23:05:50.065Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 151,
+    "fields": {
+        "timestamp": "2026-06-16T23:08:52.368Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 152,
+    "fields": {
+        "timestamp": "2026-06-16T23:14:12.865Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 153,
+    "fields": {
+        "timestamp": "2026-06-16T23:15:13.319Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 154,
+    "fields": {
+        "timestamp": "2026-06-16T23:33:42.895Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 155,
+    "fields": {
+        "timestamp": "2026-06-16T23:33:57.620Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 156,
+    "fields": {
+        "timestamp": "2026-06-16T23:38:36.311Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 157,
+    "fields": {
+        "timestamp": "2026-06-17T00:16:38.613Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 158,
+    "fields": {
+        "timestamp": "2026-06-17T00:17:36.357Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 159,
+    "fields": {
+        "timestamp": "2026-06-17T00:33:29.387Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 160,
+    "fields": {
+        "timestamp": "2026-06-17T01:09:40.186Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 161,
+    "fields": {
+        "timestamp": "2026-06-17T01:11:52.462Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 162,
+    "fields": {
+        "timestamp": "2026-06-17T01:31:57.312Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 163,
+    "fields": {
+        "timestamp": "2026-06-17T09:19:55.737Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 164,
+    "fields": {
+        "timestamp": "2026-06-17T09:19:55.737Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "none"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 165,
+    "fields": {
+        "timestamp": "2026-06-17T09:19:53.923Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "rcon"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 166,
+    "fields": {
+        "timestamp": "2026-06-17T09:20:20.043Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 167,
+    "fields": {
+        "timestamp": "2026-06-17T10:48:51.253Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 168,
+    "fields": {
+        "timestamp": "2026-06-17T10:49:08.919Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 169,
+    "fields": {
+        "timestamp": "2026-06-17T10:49:25.927Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 170,
+    "fields": {
+        "timestamp": "2026-06-17T10:49:26.509Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 171,
+    "fields": {
+        "timestamp": "2026-06-17T10:51:22.984Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 172,
+    "fields": {
+        "timestamp": "2026-06-17T10:53:22.127Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 173,
+    "fields": {
+        "timestamp": "2026-06-17T10:54:21.033Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 174,
+    "fields": {
+        "timestamp": "2026-06-17T10:54:49.830Z",
+        "is_online": true,
+        "player_count": 2,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 175,
+    "fields": {
+        "timestamp": "2026-06-17T10:58:11.524Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 176,
+    "fields": {
+        "timestamp": "2026-06-17T11:13:41.837Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 177,
+    "fields": {
+        "timestamp": "2026-06-17T11:16:24.718Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 178,
+    "fields": {
+        "timestamp": "2026-06-17T11:46:47.650Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 179,
+    "fields": {
+        "timestamp": "2026-06-17T11:47:02.654Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 180,
+    "fields": {
+        "timestamp": "2026-06-17T11:47:03.795Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 181,
+    "fields": {
+        "timestamp": "2026-06-17T11:47:06.496Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 182,
+    "fields": {
+        "timestamp": "2026-06-17T11:54:08.009Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 183,
+    "fields": {
+        "timestamp": "2026-06-17T11:54:26.744Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 184,
+    "fields": {
+        "timestamp": "2026-06-17T11:54:29.238Z",
+        "is_online": true,
+        "player_count": 2,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 185,
+    "fields": {
+        "timestamp": "2026-06-17T11:56:52.383Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 186,
+    "fields": {
+        "timestamp": "2026-06-17T11:58:09.838Z",
+        "is_online": true,
+        "player_count": 2,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 187,
+    "fields": {
+        "timestamp": "2026-06-17T11:58:43.685Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 188,
+    "fields": {
+        "timestamp": "2026-06-17T14:03:23.000Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 189,
+    "fields": {
+        "timestamp": "2026-06-17T17:47:22.024Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 190,
+    "fields": {
+        "timestamp": "2026-06-17T19:31:01.831Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 191,
+    "fields": {
+        "timestamp": "2026-06-17T19:31:02.371Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 192,
+    "fields": {
+        "timestamp": "2026-06-17T20:55:02.402Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 193,
+    "fields": {
+        "timestamp": "2026-06-17T22:03:00.712Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 194,
+    "fields": {
+        "timestamp": "2026-06-17T22:09:40.410Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 195,
+    "fields": {
+        "timestamp": "2026-06-17T22:16:49.863Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 196,
+    "fields": {
+        "timestamp": "2026-06-17T22:25:38.915Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 197,
+    "fields": {
+        "timestamp": "2026-06-17T22:25:39.559Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 198,
+    "fields": {
+        "timestamp": "2026-06-17T22:26:16.166Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 199,
+    "fields": {
+        "timestamp": "2026-06-17T22:31:43.295Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 200,
+    "fields": {
+        "timestamp": "2026-06-17T22:32:02.700Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 201,
+    "fields": {
+        "timestamp": "2026-06-17T22:34:43.089Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 202,
+    "fields": {
+        "timestamp": "2026-06-17T22:36:22.388Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 203,
+    "fields": {
+        "timestamp": "2026-06-17T22:36:30.547Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 204,
+    "fields": {
+        "timestamp": "2026-06-17T22:36:45.549Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 205,
+    "fields": {
+        "timestamp": "2026-06-17T22:36:46.093Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 206,
+    "fields": {
+        "timestamp": "2026-06-17T22:39:10.592Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 207,
+    "fields": {
+        "timestamp": "2026-06-17T22:39:25.592Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 208,
+    "fields": {
+        "timestamp": "2026-06-17T22:59:10.255Z",
+        "is_online": false,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 209,
+    "fields": {
+        "timestamp": "2026-06-17T22:59:17.935Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 210,
+    "fields": {
+        "timestamp": "2026-06-17T22:59:32.936Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 211,
+    "fields": {
+        "timestamp": "2026-06-17T22:59:34.069Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 212,
+    "fields": {
+        "timestamp": "2026-06-19T08:43:52.769Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 213,
+    "fields": {
+        "timestamp": "2026-06-19T08:43:52.769Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 214,
+    "fields": {
+        "timestamp": "2026-06-19T10:02:47.201Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 215,
+    "fields": {
+        "timestamp": "2026-06-19T10:02:42.798Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 216,
+    "fields": {
+        "timestamp": "2026-06-19T10:05:05.127Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "ptero"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 217,
+    "fields": {
+        "timestamp": "2026-06-19T10:05:31.171Z",
+        "is_online": true,
+        "player_count": 0,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "core.server",
+    "pk": 218,
+    "fields": {
+        "timestamp": "2026-06-19T10:17:30.710Z",
+        "is_online": true,
+        "player_count": 1,
+        "service_mode": "full"
+    }
+},
+{
+    "model": "users.userprofile",
+    "pk": 4,
+    "fields": {
+        "user": [
+            "Vi_Tul"
+        ],
+        "player": 1,
+        "is_pending_whitelist": false
+    }
+},
+{
+    "model": "users.userprofile",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "luT_iV"
+        ],
+        "player": 2,
+        "is_pending_whitelist": false
+    }
+},
+{
+    "model": "users.userprofile",
+    "pk": 10,
+    "fields": {
+        "user": [
+            "Chel"
+        ],
+        "player": null,
+        "is_pending_whitelist": false
+    }
+},
+{
+    "model": "users.userprofile",
+    "pk": 11,
+    "fields": {
+        "user": [
+            "Aboba2"
+        ],
+        "player": null,
+        "is_pending_whitelist": false
+    }
+},
+{
+    "model": "users.userprofile",
+    "pk": 12,
+    "fields": {
+        "user": [
+            "NoError"
+        ],
+        "player": null,
+        "is_pending_whitelist": false
+    }
+},
+{
+    "model": "users.userprofile",
+    "pk": 13,
+    "fields": {
+        "user": [
+            "Aboba"
+        ],
+        "player": null,
+        "is_pending_whitelist": false
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2026-06-16T23:35:27.038Z",
+        "user": [
+            "Vi_Tul"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "6",
+        "object_repr": "Aboba",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2026-06-16T23:44:06.753Z",
+        "user": [
+            "Vi_Tul"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "7",
+        "object_repr": "Aboba",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2026-06-17T14:59:47.844Z",
+        "user": [
+            "Vi_Tul"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "9",
+        "object_repr": "Chel",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2026-06-17T19:57:33.455Z",
+        "user": [
+            "Vi_Tul"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "8",
+        "object_repr": "Aboba",
+        "action_flag": 3,
+        "change_message": ""
+    }
+}
+]
