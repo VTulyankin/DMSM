@@ -94,7 +94,7 @@ PTERODACTYL_SERVER_ID = os.environ.get('PTERODACTYL_SERVER_ID')
 RCON_HOST = os.environ.get('RCON_HOST')
 RCON_PORT = os.environ.get('RCON_PORT')
 RCON_PASSWORD = os.environ.get('RCON_PASSWORD')
-RCON_INTERVAL = int(os.environ.get('RCON_INTERVAL'))
+RCON_INTERVAL = int(os.environ.get('RCON_INTERVAL', 5))
 
 WHITELIST_MODE = os.environ.get('WHITELIST_MODE') == 'True'
 
