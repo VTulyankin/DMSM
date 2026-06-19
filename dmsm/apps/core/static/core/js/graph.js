@@ -341,6 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Helper: Map status string to color
     function getStatusColor(status) {
+        if (status === 'offline') return 'var(--color-gray-400)';
         if (status === 'downtime') return 'var(--color-red-500)';
         if (status === 'degraded') return 'var(--color-yellow-500)';
         return 'var(--color-green-500)';
@@ -353,40 +354,72 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
             
             processedData = [];
-            let lastStatus = 'online';
-            let lastVal = 0;
             
-            for (const ev of data.events) {
-                const t = new Date(ev.time);
+            let timeSet = new Set();
+            data.events.forEach(e => timeSet.add(new Date(e.time).getTime()));
+            data.monitors.forEach(m => {
+                const s = new Date(m.start).getTime();
+                const e = new Date(m.end).getTime();
+                timeSet.add(s);
+                timeSet.add(e);
+                timeSet.add(e + 1); // Ensure gap is recorded
+            });
+            let times = Array.from(timeSet).sort((a, b) => a - b);
+            
+            let lastVal = 0;
+            let lastServerStatus = 'online';
+            let eIdx = 0;
+            
+            for (const tMs of times) {
+                while (eIdx < data.events.length && new Date(data.events[eIdx].time).getTime() <= tMs) {
+                    const ev = data.events[eIdx];
+                    if (ev.type === 'downtime') {
+                        lastVal = 0;
+                        lastServerStatus = 'downtime';
+                    } else if (ev.type === 'uptime') {
+                        lastVal = ev.player_count || 0;
+                        lastServerStatus = 'online';
+                    }
+                    eIdx++;
+                }
                 
-                let status = 'online';
-                let val = lastVal;
+                let monitorMode = 'offline';
+                for (const m of data.monitors) {
+                    const mStart = new Date(m.start).getTime();
+                    const mEnd = new Date(m.end).getTime();
+                    if (tMs >= mStart && tMs <= mEnd) {
+                        monitorMode = m.mode;
+                        break;
+                    }
+                }
                 
-                if (ev.type === 'downtime') {
-                    status = 'downtime';
-                    val = 0;
-                } else if (ev.type === 'uptime') {
-                    val = ev.player_count || 0;
-                    status = ev.service_mode === 'full' ? 'online' : 'degraded';
+                let finalStatus = 'online';
+                if (monitorMode === 'offline') {
+                    finalStatus = 'offline';
+                } else if (lastServerStatus === 'downtime') {
+                    finalStatus = 'downtime';
+                } else if (monitorMode !== 'full') {
+                    finalStatus = 'degraded';
                 }
                 
                 processedData.push({
-                    time: t,
-                    value: val,
-                    status: status
+                    time: new Date(tMs),
+                    value: lastVal,
+                    status: finalStatus
                 });
-                lastStatus = status;
-                lastVal = val;
             }
             
             if (processedData.length > 0) {
                 firstDataTimeMs = processedData[0].time.getTime();
             }
             
+            let currentStatus = processedData.length > 0 ? processedData[processedData.length - 1].status : 'online';
+            let currentVal = processedData.length > 0 ? processedData[processedData.length - 1].value : 0;
+            
             processedData.push({
                 time: new Date(),
-                value: lastVal,
-                status: lastStatus
+                value: currentVal,
+                status: currentStatus
             });
             
             if (!initialZoomDone && processedData.length > 0) {
@@ -405,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateZoomIndicator();
             }
             
-            updateUI(lastVal, lastStatus);
+            updateUI(currentVal, currentStatus);
             render();
             
         } catch (error) {
@@ -414,8 +447,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateUI(online, status) {
-        if (status === 'downtime') {
-            currentOnlineEl.textContent = "OFF";
+        if (status === 'offline') {
+            currentOnlineEl.textContent = "Откл";
+            currentOnlineEl.className = "text-4xl font-black text-gray-400 drop-shadow-sm transition-colors cursor-pointer hover:text-gray-300";
+        } else if (status === 'downtime') {
+            currentOnlineEl.textContent = "Откл";
             currentOnlineEl.className = "text-4xl font-black text-red-500 drop-shadow-sm transition-colors cursor-pointer hover:text-red-400";
         } else if (status === 'degraded') {
             currentOnlineEl.textContent = online;
@@ -614,8 +650,18 @@ document.addEventListener("DOMContentLoaded", () => {
         tooltip.style.transform = `translate(-50%, -100%)`; 
         
         let colorClass = 'border-green-500';
-        if (info.status === 'downtime') colorClass = 'border-red-500';
-        else if (info.status === 'degraded') colorClass = 'border-yellow-500';
+        if (info.status === 'offline') {
+            tooltipValue.textContent = 'Нет связи';
+            colorClass = 'border-gray-400';
+        } else if (info.status === 'downtime') {
+            tooltipValue.textContent = 'Откл';
+            colorClass = 'border-red-500';
+        } else if (info.status === 'degraded') {
+            tooltipValue.textContent = info.val;
+            colorClass = 'border-yellow-500';
+        } else {
+            tooltipValue.textContent = info.val;
+        }
         
         tooltipDot.className = `w-3 h-3 bg-white rounded-full shadow border-2 absolute -bottom-1.5 left-1/2 -ml-1.5 ${colorClass}`;
     }

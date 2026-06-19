@@ -108,4 +108,5 @@ TELLRAW_LINK_MESSAGE = [
     {"text": "[перейди по ссылке]", "color": "green", "is_link": True}
 ]
 MINECRAFT_SERVER_IP = os.environ.get('MINECRAFT_SERVER_IP', 'play.example.com')
+SITE_URL = os.environ.get('SITE_URL', 'http://127.0.0.1:8000')
 STATIC_ROOT = BASE_DIR / 'staticfiles'

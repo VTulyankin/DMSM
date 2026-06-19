@@ -63,5 +63,26 @@ class Command(BaseCommand):
         if getattr(settings, 'WHITELIST_MODE', False):
             threading.Thread(target=process_whitelist_queue, daemon=True).start()
 
+        def heartbeat_loop():
+            from dmsm.apps.core.models import Monitor
+            from django.utils import timezone
+            
+            current_monitor = None
+            current_mode = None
+            
+            while True:
+                try:
+                    mode = supervisor.current_mode or 'full'
+                    if not current_monitor or mode != current_mode:
+                        current_monitor = Monitor.objects.create(monitor_mode=mode)
+                        current_mode = mode
+                    else:
+                        Monitor.objects.filter(id=current_monitor.id).update(live_time=timezone.now())
+                except Exception as e:
+                    logging.error(f"Error updating monitor heartbeat: {e}")
+                time.sleep(20)
+
+        threading.Thread(target=heartbeat_loop, daemon=True).start()
+
         while True:
             time.sleep(1)

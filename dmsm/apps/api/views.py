@@ -4,8 +4,11 @@ from dmsm.apps.core.models import Session, Server, Player
 import datetime
 
 def api_online_events(request):
+    from django.utils import timezone
+    from dmsm.apps.core.models import Server, Monitor
+    import datetime
+    
     servers = Server.objects.all().order_by('timestamp')
-
     events = []
     
     for server in servers:
@@ -18,13 +21,31 @@ def api_online_events(request):
             events.append({
                 'time': server.timestamp.isoformat(),
                 'type': 'uptime',
-                'player_count': server.player_count,
-                'service_mode': server.service_mode
+                'player_count': server.player_count
             })
             
     events.sort(key=lambda x: x['time'])
     
-    return JsonResponse({'events': events})
+    monitor_events = []
+    monitors = Monitor.objects.all().order_by('timestamp')
+    for m in monitors:
+        monitor_events.append({
+            'start': m.timestamp.isoformat(),
+            'end': m.live_time.isoformat(),
+            'mode': m.monitor_mode
+        })
+        
+    last_monitor = monitors.last()
+    if last_monitor:
+        diff = timezone.now() - last_monitor.live_time
+        if diff.total_seconds() > 60:
+            monitor_events.append({
+                'start': (last_monitor.live_time + datetime.timedelta(seconds=1)).isoformat(),
+                'end': timezone.now().isoformat(),
+                'mode': 'offline'
+            })
+            
+    return JsonResponse({'events': events, 'monitors': monitor_events})
 
 def api_players_at_time(request):
     timestamp_str = request.GET.get('timestamp')
