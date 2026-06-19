@@ -192,16 +192,19 @@ document.addEventListener("DOMContentLoaded", () => {
     function generateRoundedPath(data) {
         if (!data || data.length === 0) return "";
         
+        const geomData = data.filter(d => !d.isArtificial);
+        if (geomData.length === 0) return "";
+        
         const rawPoints = [];
-        for (let i = 0; i < data.length; i++) {
-            const pt = data[i];
+        for (let i = 0; i < geomData.length; i++) {
+            const pt = geomData[i];
             const x = currentXScale(pt.time);
             const y = yScale(pt.value);
             
             if (i === 0) {
                 rawPoints.push({x, y});
             } else {
-                const prev = data[i-1];
+                const prev = geomData[i-1];
                 const prevY = yScale(prev.value);
                 // Step Corner
                 rawPoints.push({x: x, y: prevY}); 
@@ -357,13 +360,16 @@ document.addEventListener("DOMContentLoaded", () => {
             
             let nowMs = new Date().getTime();
             let timeSet = new Set();
+            let artificialTimes = new Set();
             data.events.forEach(e => timeSet.add(new Date(e.time).getTime()));
             data.monitors.forEach(m => {
                 const s = new Date(m.start).getTime();
                 const e = new Date(m.end).getTime();
                 timeSet.add(s);
                 timeSet.add(e);
-                timeSet.add(e + 60001); // Sharp transition to offline after 1 min
+                const art = e + 60001;
+                timeSet.add(art); // Sharp transition to offline after 1 min
+                artificialTimes.add(art);
             });
             let times = Array.from(timeSet)
                 .sort((a, b) => a - b)
@@ -374,8 +380,12 @@ document.addEventListener("DOMContentLoaded", () => {
             let eIdx = 0;
             
             for (const tMs of times) {
+                let isRealEvent = false;
                 while (eIdx < data.events.length && new Date(data.events[eIdx].time).getTime() <= tMs) {
                     const ev = data.events[eIdx];
+                    if (new Date(ev.time).getTime() === tMs) {
+                        isRealEvent = true;
+                    }
                     if (ev.type === 'downtime') {
                         lastVal = 0;
                         lastServerStatus = 'downtime';
@@ -408,7 +418,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 processedData.push({
                     time: new Date(tMs),
                     value: lastVal,
-                    status: finalStatus
+                    status: finalStatus,
+                    isArtificial: artificialTimes.has(tMs) && !isRealEvent
                 });
             }
             
