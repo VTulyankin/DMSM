@@ -35,19 +35,6 @@ def api_online_events(request):
             'mode': m.monitor_mode
         })
         
-    last_monitor = monitors.last()
-    if last_monitor:
-        diff = timezone.now() - last_monitor.live_time
-        if diff.total_seconds() > 60:
-            monitor_events.append({
-                'start': (last_monitor.live_time + datetime.timedelta(seconds=1)).isoformat(),
-                'end': timezone.now().isoformat(),
-                'mode': 'offline'
-            })
-        else:
-            # Extend the last monitor into the future by 60 seconds to avoid clock skew / network latency issues
-            monitor_events[-1]['end'] = (timezone.now() + datetime.timedelta(seconds=60)).isoformat()
-            
     return JsonResponse({'events': events, 'monitors': monitor_events})
 
 def api_players_at_time(request):

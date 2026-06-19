@@ -355,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             processedData = [];
             
+            let nowMs = new Date().getTime();
             let timeSet = new Set();
             data.events.forEach(e => timeSet.add(new Date(e.time).getTime()));
             data.monitors.forEach(m => {
@@ -362,11 +363,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 const e = new Date(m.end).getTime();
                 timeSet.add(s);
                 timeSet.add(e);
-                timeSet.add(e + 1); // Ensure gap is recorded
+                timeSet.add(e + 60001); // Sharp transition to offline after 1 min
             });
             let times = Array.from(timeSet)
                 .sort((a, b) => a - b)
-                .filter(t => t <= new Date().getTime());
+                .filter(t => t <= nowMs);
             
             let lastVal = 0;
             let lastServerStatus = 'online';
@@ -389,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 for (const m of data.monitors) {
                     const mStart = new Date(m.start).getTime();
                     const mEnd = new Date(m.end).getTime();
-                    if (tMs >= mStart && tMs <= mEnd) {
+                    if (tMs >= mStart && tMs <= mEnd + 60000) {
                         monitorMode = m.mode;
                         break;
                     }
@@ -415,11 +416,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 firstDataTimeMs = processedData[0].time.getTime();
             }
             
-            let currentStatus = processedData.length > 0 ? processedData[processedData.length - 1].status : 'online';
+            let currentMonitorMode = 'offline';
+            for (const m of data.monitors) {
+                const mStart = new Date(m.start).getTime();
+                const mEnd = new Date(m.end).getTime();
+                if (nowMs >= mStart && nowMs <= mEnd + 60000) {
+                    currentMonitorMode = m.mode;
+                    break;
+                }
+            }
+            
+            let currentStatus = 'online';
+            if (currentMonitorMode === 'offline') {
+                currentStatus = 'offline';
+            } else if (lastServerStatus === 'downtime') {
+                currentStatus = 'downtime';
+            } else if (currentMonitorMode !== 'full') {
+                currentStatus = 'degraded';
+            }
+            
             let currentVal = processedData.length > 0 ? processedData[processedData.length - 1].value : 0;
             
             processedData.push({
-                time: new Date(),
+                time: new Date(nowMs),
                 value: currentVal,
                 status: currentStatus
             });
